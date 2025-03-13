@@ -33,3 +33,4 @@
 .\objects\main.o: .\Hardware\Serial.h
 .\objects\main.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: .\System\Array.h
+.\objects\main.o: .\Hardware\MyADC.h

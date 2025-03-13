@@ -710,6 +710,16 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\Serial.h</FilePath>
             </File>
+            <File>
+              <FileName>MyADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyADC.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyADC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyADC.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -719,6 +729,11 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\User\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\main.h</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_conf.h</FileName>
@@ -734,11 +749,6 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\stm32f10x_it.h</FilePath>
-            </File>
-            <File>
-              <FileName>main.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\User\main.h</FilePath>
             </File>
           </Files>
         </Group>

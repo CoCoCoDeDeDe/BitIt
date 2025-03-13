@@ -5,7 +5,8 @@ USART_InitTypeDef USART_InitStruct;
 uint8_t Serial_RxFlag[4] = {0, 0, 0, 0};	//错点：遗漏Serial_RxFlag[ser]
 //用于标记状态机是否把一整个String接收完，否则不输出新接收的String等等
 
-char Serial_RxStringPacket[100];
+char Serial_Rx1StringPacket[100];
+char Serial_Rx2StringPacket[100];
 
 uint8_t StateMachine_s1 = 0;
 uint8_t StateMachine_count1 = 0;
@@ -13,9 +14,11 @@ uint8_t StateMachine_s2 = 0;
 uint8_t StateMachine_count2 = 0;
 
 void Serial_Init(
-	USART_TypeDef* USARTx, uint32_t USART_BaudRate, 
+	USART_TypeDef* USARTx, 
+	uint32_t USART_BaudRate, 
 	uint8_t NVIC_IRQChannelPreemptionPriority, 
-	uint8_t NVIC_IRQChannelSubPriority) {
+	uint8_t NVIC_IRQChannelSubPriority
+	) {
 	
 	GPIO_TypeDef* GPIOTx;
 	uint16_t GPIO_Pin_Tx;
@@ -29,17 +32,14 @@ void Serial_Init(
 	
 	uint8_t NVIC_IRQChannel;
 
-	if(USARTx == USART1) {
+	if(USARTx == USART3) {
 		GPIOTx = GPIORx = GPIOB;
-		GPIO_Pin_Tx = GPIO_Pin_6;
-		GPIO_Pin_Rx = GPIO_Pin_7;	//错点：将Rx错写为Tx
+		GPIO_Pin_Tx = GPIO_Pin_10;
+		GPIO_Pin_Rx = GPIO_Pin_11;	//错点：将Rx错写为Tx
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+		RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
 		
-		GPIO_PinRemapConfig(GPIO_Remap_USART1, ENABLE);
-		
-		NVIC_IRQChannel = USART1_IRQn;
+		NVIC_IRQChannel = USART3_IRQn;
 	} else if(USARTx == USART2) {
 		GPIOTx = GPIORx = GPIOA;
 		GPIO_Pin_Tx = GPIO_Pin_2;
@@ -49,7 +49,7 @@ void Serial_Init(
 		
 		NVIC_IRQChannel = USART2_IRQn;
 	} else {
-	//error：USARTx应为USART1（对应STM32-ESP8266）或USART2（对应STM32-PC）
+	//error：USARTx应为USART3（对应STM32-ESP8266）或USART2（对应STM32-PC）
 	}
 	
 	
@@ -100,7 +100,14 @@ void Serial_BaudRateConfig(USART_TypeDef* USARTx, uint32_t USART_BaudRate) {
 	USART_Init(USARTx, &USART_InitStruct);
 }
 
-void Serial_Auto_StateMachine(USART_TypeDef *USARTx, uint8_t ser, uint8_t *s, uint8_t *count) {
+void Serial_Auto_StateMachine(
+	USART_TypeDef *USARTx, 
+	uint8_t ser, 
+	uint8_t *s, 
+	uint8_t *count, 
+	char Serial_RxStringPacket[], 
+	uint8_t size) {
+		
 	uint16_t RxData = USART_ReceiveData(USARTx);
 	//RXNE在USART_DR被读取后自动RESET（即0，数据没有收到）
 	//下一轮USART_ReceiveData()运行对USART_DR进行写操作会将TXE自动置0即RESET，即数据未被完全转移至移位寄存器
@@ -130,7 +137,9 @@ void Serial_Auto_StateMachine(USART_TypeDef *USARTx, uint8_t ser, uint8_t *s, ui
 			if(RxData == '\r') {
 				*s = 2;
 			} else {
-				if (*count < sizeof(Serial_RxStringPacket) - 1) {
+				if (*count < size - 1) {
+					//错点：将数组传递到函数是以原始的指针的形式在函数内存在的，sizeof(Serial_RxStringPacket)会出warning。
+					//解决方法：在数组传入函数时就将数组size传入函数
 					//当 已经装了的位数(*count+1)<可以装的位数(sizeof(...)) 时才继续装填
 					Serial_RxStringPacket[(*count)++] = RxData;
 					//错点：*count++错误，++优先级高于*，需写为(*count)++
@@ -155,24 +164,29 @@ void Serial_Auto_StateMachine(USART_TypeDef *USARTx, uint8_t ser, uint8_t *s, ui
 	}
 }
 
-void USART1_IRQHandler() {
-	if(USART_GetITStatus(USART1,USART_IT_RXNE) == SET) {	//错点：将GetITStatus错写为GetFlagStatus
+void USART3_IRQHandler() {
+	if(USART_GetITStatus(USART3,USART_IT_RXNE) == SET) {	//错点：将GetITStatus错写为GetFlagStatus
 		//当RDR移位寄存器中的数据被转移到USART_DR寄存器中（等待读取），该位被硬件置位（1即SET）。
 		//如果USART_CR1寄存器中的RXNEIE为1，则产生中断。
 		//对USART_DR的读操作（RxData = USART_ReceiveData(USARTx)）可以将该位清零（0即RESET）。
 		
+		uint8_t size = sizeof(Serial_Rx1StringPacket)/sizeof(Serial_Rx1StringPacket[0]);
+		
 		//进入状态机程序
-		Serial_Auto_StateMachine(USART1, 1, &StateMachine_s1, &StateMachine_count1);
+		Serial_Auto_StateMachine(USART3, 1, &StateMachine_s1, &StateMachine_count1, Serial_Rx1StringPacket, size);
 	} else{
 		//NOTHING
 	}
-	USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+	USART_ClearITPendingBit(USART3, USART_IT_RXNE);
 }
 
 void USART2_IRQHandler() {
 	if(USART_GetITStatus(USART2,USART_IT_RXNE) == SET) {	//错点：将GetITStatus错写为GetFlagStatus
+		
+		uint8_t size = sizeof(Serial_Rx2StringPacket)/sizeof(Serial_Rx2StringPacket[0]);
+		
 		//进入状态机程序
-		Serial_Auto_StateMachine(USART2, 2, &StateMachine_s2, &StateMachine_count2);
+		Serial_Auto_StateMachine(USART2, 2, &StateMachine_s2, &StateMachine_count2, Serial_Rx2StringPacket, size);
 	} else{
 		//NOTHING
 	}
@@ -184,8 +198,8 @@ void Serial_SendByte(USART_TypeDef* USARTx, uint8_t Byte) {
 	//TXE置0：数据还未被完全转移至移位寄存器；TXE置1：数据已被完全转移至移位寄存器。
 	//下一轮对USART_SendData()运行对USART_DR进行写操作会将TXE自动置0即RESET，即数据未被完全转移至移位寄存器
 	//当TDR寄存器中的数据被硬件完全转移到移位寄存器的时候，该位被硬件置位即1即SET，即上while(...)可跳出
+	//上行代码作用：等待上一轮Tx从USART_DR全部转移到移位寄存器
 	USART_SendData(USARTx, Byte);
-	
 }
 
 void Serial_SendStringPacket(USART_TypeDef* USARTx, char *string) {

@@ -8,22 +8,27 @@
 int main(void)
 {	
 	OLED_Init();
-	//Serial_Init(USART1, 115200, 2, 2);
+	Serial_Init(USART3, 115200, 2, 2);
 	Serial_Init(USART2, 115200, 2, 2);
 	
-	OLED_ShowString(4, 1, "OLED_ON");
-	
-	//Serial_SendStringPacket(USART1, "usart1");
-	Serial_SendStringPacket(USART2, "usart2");
+	Serial_SendStringPacket(USART3, "USART3");
+	Serial_SendStringPacket(USART2, "USART2");
 	
 	
 	while(1) {
-		if(Serial_RxFlag[2] == 1) {
-			OLED_ShowString(1,1,"                ");
-			OLED_ShowString(1,1,Serial_RxStringPacket);
-			OLED_ShowString(2,1,"2");
+		if(Serial_RxFlag[1] == 1) {
+			OLED_ShowString(1, 1, "USART3:");
+			OLED_ShowString(2, 1, "                ");
+			OLED_ShowString(2, 1, Serial_Rx1StringPacket);
 			
-			Serial_RxFlag[2] = 0;
+			Serial_RxFlag[1] = 0;
+		}
+		if (Serial_RxFlag[3] == 1) {
+			OLED_ShowString(3, 1, "USART2:");
+			OLED_ShowString(4, 1, "                ");
+			OLED_ShowString(4, 1, Serial_Rx2StringPacket);
+			
+			Serial_RxFlag[3] = 0;
 		}
 	}
 }
@@ -31,8 +36,9 @@ int main(void)
 //Things TO DO
 //  OK修复Tx
 //	OK修复Rx
-//	配置usart1的接收字符串
-//	配置与usart1通信内容显示的方案
+//	OK配置USART3的接收字符串
+//	OK配置USART3的发送字符串
+//	配置与USART3通信内容显示的方案
 
 
 

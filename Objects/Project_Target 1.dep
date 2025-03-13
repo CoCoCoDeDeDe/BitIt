@@ -870,7 +870,7 @@ I (.\Library\misc.h)(0x4D783BB4)
 I (Hardware\OLED_Font.h)(0x67C3CFC0)
 F (.\Hardware\OLED.h)(0x67236CFB)()
 F (.\Hardware\OLED_Font.h)(0x67C3CFC0)()
-F (.\Hardware\Serial.c)(0x67D295CF)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Library -I .\User -I .\Start -I .\System -I .\Hardware-I.\RTE\_Target_1-ID:\YYFprogramFiles\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\YYFprogramFiles\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\serial.o --omf_browse .\objects\serial.crf --depend .\objects\serial.d)
+F (.\Hardware\Serial.c)(0x67D2C9E8)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Library -I .\User -I .\Start -I .\System -I .\Hardware-I.\RTE\_Target_1-ID:\YYFprogramFiles\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\YYFprogramFiles\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\serial.o --omf_browse .\objects\serial.crf --depend .\objects\serial.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (D:\YYFprogramFiles\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -899,8 +899,8 @@ I (.\Library\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
-F (.\Hardware\Serial.h)(0x67D287AC)()
-F (.\User\main.c)(0x67D29262)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Library -I .\User -I .\Start -I .\System -I .\Hardware-I.\RTE\_Target_1-ID:\YYFprogramFiles\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\YYFprogramFiles\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\Hardware\Serial.h)(0x67D2B8F8)()
+F (.\User\main.c)(0x67D2CA39)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Library -I .\User -I .\Start -I .\System -I .\Hardware-I.\RTE\_Target_1-ID:\YYFprogramFiles\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\YYFprogramFiles\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (D:\YYFprogramFiles\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -931,7 +931,7 @@ I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (.\System\Delay.h)(0x6130920E)
 I (.\Hardware\OLED.h)(0x67236CFB)
-I (.\Hardware\Serial.h)(0x67D287AC)
+I (.\Hardware\Serial.h)(0x67D2B8F8)
 I (D:\YYFprogramFiles\Keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (.\System\Array.h)(0x67D13BB6)
 F (.\User\stm32f10x_conf.h)(0x4D99A59E)()
@@ -966,4 +966,4 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\User\stm32f10x_it.h)(0x4D99A59E)()
-F (.\User\main.h)(0x67D180D1)()
+F (.\User\main.h)(0x67D2B62A)()

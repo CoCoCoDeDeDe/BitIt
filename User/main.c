@@ -8,30 +8,33 @@
 int main(void)
 {	
 	OLED_Init();
-	Serial_Init(115200);
+	//Serial_Init(USART1, 115200, 2, 2);
+	Serial_Init(USART2, 115200, 2, 2);
 	
-	while(1)
-	{
-		if(Serial_RxFlag == 1)
-		{
+	OLED_ShowString(4, 1, "OLED_ON");
+	
+	//Serial_SendStringPacket(USART1, "usart1");
+	Serial_SendStringPacket(USART2, "usart2");
+	
+	
+	while(1) {
+		if(Serial_RxFlag[2] == 1) {
 			OLED_ShowString(1,1,"                ");
 			OLED_ShowString(1,1,Serial_RxStringPacket);
+			OLED_ShowString(2,1,"2");
 			
-			Serial_RxFlag = 0;
+			Serial_RxFlag[2] = 0;
 		}
 	}
 }
 
 //Things TO DO
-//	改OLED代码
-//	配置STM32-ESP串口
-//	配置3个ADC+DMA设备
-//	配置DHT11
-//	配置超声波发射器
-//	配置超声波接收
-//	配置生长灯
-//	配置照明
-//	配置喂食控制
-//	配置气泵控制
-//	配置水泵控制
-//	配置温度控制
+//  OK修复Tx
+//	OK修复Rx
+//	配置usart1的接收字符串
+//	配置与usart1通信内容显示的方案
+
+
+
+
+

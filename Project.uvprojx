@@ -670,6 +670,16 @@
               <FileType>5</FileType>
               <FilePath>.\System\Array.h</FilePath>
             </File>
+            <File>
+              <FileName>MyDMA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\MyDMA.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyDMA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\System\MyDMA.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -724,6 +734,11 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\stm32f10x_it.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\main.h</FilePath>
             </File>
           </Files>
         </Group>

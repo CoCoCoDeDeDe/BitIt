@@ -114,10 +114,25 @@ void USART2_IRQHandler() {
 
 void Serial_SendByte(uint8_t Byte)
 {
-	USART_SendData(USART2, Byte);
 	while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET);	
 	//TXE置0：数据还未被完全转移至移位寄存器；TXE置1：数据已被完全转移至移位寄存器。
 	//下一轮对USART_SendData()运行对USART_DR进行写操作会将TXE自动置0即RESET，即数据未被完全转移至移位寄存器
+	USART_SendData(USART2, Byte);
 	
 }
+
+void Serial_SendStringPacket(char *string) {
+	for(uint8_t i = 0; string[i] != '\0'; i++) {	//错点：将string[i]错写为i != '\0'
+		Serial_SendByte(string[i]);
+	}
+}
+
+void Serial_SendStringPacketV2(char* str)
+{
+    while (*str)
+    {
+        Serial_SendByte(*str++);
+    }
+}
+
 

@@ -14,6 +14,6 @@ void Serial_Init(uint32_t USART_BaudRate);
 void Serial_BaudRateConfig(uint32_t USART_BaudRate);
 void Serial_SendByte(uint8_t Byte);
 
-
-
+void Serial_SendStringPacket(char *string);
+void Serial_SendStringPacketV2(char* str);
 #endif

@@ -14,6 +14,7 @@ int main(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//NVIC优先级分组的配置对所有中断请求是统一的
 	
 	MyTIM_Init();
+	MyTIM_OC2Init();
 	OLED_Init();
 	OLED_Clear();
 	Serial_Init(USART3, 115200, 2, 2);
@@ -23,7 +24,7 @@ int main(void)
 	Serial_SendStringPacket(USART3, "USART3");
 	Serial_SendStringPacket(USART2, "USART2");
 
-	uint32_t MyTIM_TIM1_test_count_temp = MyTIM_TIM1_test_count;
+//	uint32_t MyTIM_TIM1_test_count_temp = MyTIM_TIM1_test_count;
 
 	while(1) {
 //	if(Serial_RxFlag[1] == 1) {
@@ -51,13 +52,20 @@ int main(void)
 //	OLED_ShowString(4, 1, "                ");
 //	OLED_ShowNum(4, 1, MyDMA_DMA1Result[3], 4);
 	
-		if( MyTIM_TIM1_test_count != MyTIM_TIM1_test_count_temp )
-		{
-			OLED_ShowString(1, 1, "                ");
-			OLED_ShowNum(1, 1, MyTIM_TIM1_test_count, 8);
-		}
+//		if( MyTIM_TIM1_test_count != MyTIM_TIM1_test_count_temp )
+//		{
+//			OLED_ShowString(1, 1, "                ");
+//			OLED_ShowNum(1, 1, MyTIM_TIM1_test_count, 8);
+//		}
+
+	
+
+
 	
 	}
+
+
+
 }
 
 //Things TO DO
@@ -67,16 +75,19 @@ int main(void)
 //	OK配置USART3的发送字符串
 //	HALF配置PA0,PA1,PB0,PB1的DAC和DMA
 //	OK配置TIM1
+//	OK配置舵机——PWM
 //	配置超声波模块——PWM && GPIO
-//	配置舵机——PWM
 //	配置TB6612——PWM
-//	配置生长灯继电器——GPIO
+//	配置生长灯继电器——GPIO1
 //	配置气泵继电器——GPIO
 //	配置加热器继电器——GPIO
 //	配置DHT11——OneWire
 //	配置DS28B12——OneWire
 //	配置WS2812——OneWire
 //	配置ESP8266 01S——USART3
+//	配置MQTT:MCU——Server
+//	配置时间系统
+//	设计鱼缸、PCB
 //OLD TASK
 //	HALF调查各个外设的现有代码和库
 //	OK调查土壤湿度传感器原理

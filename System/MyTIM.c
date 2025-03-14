@@ -29,8 +29,9 @@ void MyTIM_Init(void) {
 	//TIM_CKD_DIV2：采样时钟频率为定时器内部时钟频率的 1/2。
 	//TIM_CKD_DIV4：采样时钟频率为定时器内部时钟频率的 1/4。
 	
-	TIME_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Down;
-	TIME_TimeBaseInitStruct.TIM_Period = (uint16_t)(1000 - 1);	//寄存器0——计数次数1
+	TIME_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;	//CNT每个周期内从0到TIM_Period递增
+	TIME_TimeBaseInitStruct.TIM_Period = (uint16_t)(20000 - 1);	//寄存器0——计数次数1
+	//SG90电机要求其PWM周期为20ms，即fCNT = 1 / 20ms = 55Hz
 	TIME_TimeBaseInitStruct.TIM_Prescaler = (uint16_t)(72 - 1);	//计数器的时钟频率(CK_CNT)等于fCK_PSC/( PSC[15:0]+1)
 	TIME_TimeBaseInitStruct.TIM_RepetitionCounter = (uint8_t)(1 - 1);	//寄存器0——计数次数1。
 	//This parameter must be a number between 0x00 and 0xFF.(0~255)
@@ -60,19 +61,43 @@ void MyTIM_Init(void) {
 	
 }
 
+void MyTIM_OC2Init(void) {
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	//错点：遗漏开启GPIOA的外设时钟位于APB2
+	
+	GPIO_InitTypeDef GPIO_InitStruct;
+	GPIO_StructInit(&GPIO_InitStruct);
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_9;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStruct);
+	
+	TIM_OCInitTypeDef TIM_OCInitStruct;
+	TIM_OCStructInit(&TIM_OCInitStruct);
+	TIM_OCInitStruct.TIM_OCIdleState = TIM_OCIdleState_Reset;	//设置定时器空闲时该OC的高低电平
+	TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
+	TIM_OCInitStruct.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
+	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCNPolarity_High;
+	TIM_OCInitStruct.TIM_OutputNState = TIM_OutputNState_Disable;	//Cmd
+	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;	//Cmd
+	TIM_OCInitStruct.TIM_Pulse = 1500 - 1;	//设置CCR与CNT的比较值，注意实际值=寄存器值+1
+	TIM_OC2Init(TIM1, &TIM_OCInitStruct);
+	
+	TIM_CtrlPWMOutputs(TIM1, ENABLE);
+	
+	TIM_OC2PreloadConfig(TIM1, TIM_OCPreload_Enable);
+	
+}
+
 void TIM1_UP_IRQHandler() {	//错点：Handler函数名列表在startup_stm32f10x_md.s文件
 	
 	if(TIM_GetITStatus(TIM1, TIM_IT_Update) == SET)
 	{
 		MyTIM_TIM1_overflow_count_IC1 ++;	//供IC1在其自己的中断中判断ARR是否重装以及重装了几次
 		
-		MyTIM_TIM1_test_count ++;
+		//MyTIM_TIM1_test_count ++;
+		
 	}
 	TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
 }
-
-
-
-
 
 

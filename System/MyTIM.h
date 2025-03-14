@@ -6,5 +6,6 @@ extern uint32_t MyTIM_TIM1_test_count;
 
 void MyTIM_Init(void);
 
+void MyTIM_OC2Init(void);
 
 #endif

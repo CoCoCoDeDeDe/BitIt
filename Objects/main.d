@@ -34,3 +34,5 @@
 .\objects\main.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: .\System\Array.h
 .\objects\main.o: .\Hardware\MyADC.h
+.\objects\main.o: .\System\MyDMA.h
+.\objects\main.o: .\System\MyTIM.h

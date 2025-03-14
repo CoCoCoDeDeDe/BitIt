@@ -730,6 +730,16 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\MyADC.h</FilePath>
             </File>
+            <File>
+              <FileName>MyEXTI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyEXTI.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyEXTI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyEXTI.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

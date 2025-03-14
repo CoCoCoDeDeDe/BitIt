@@ -31,7 +31,7 @@ void MyTIM_Init(void) {
 	
 	TIME_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;	//CNT每个周期内从0到TIM_Period递增
 	TIME_TimeBaseInitStruct.TIM_Period = (uint16_t)(20000 - 1);	//寄存器0——计数次数1
-	//SG90电机要求其PWM周期为20ms，即fCNT = 1 / 20ms = 55Hz
+	//SG90电机要求其PWM周期为20ms，即fCNT = 1 / 20ms = 50Hz
 	TIME_TimeBaseInitStruct.TIM_Prescaler = (uint16_t)(72 - 1);	//计数器的时钟频率(CK_CNT)等于fCK_PSC/( PSC[15:0]+1)
 	TIME_TimeBaseInitStruct.TIM_RepetitionCounter = (uint8_t)(1 - 1);	//寄存器0——计数次数1。
 	//This parameter must be a number between 0x00 and 0xFF.(0~255)
@@ -61,6 +61,34 @@ void MyTIM_Init(void) {
 	
 }
 
+void MyTIM_OC1Init(void) {
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	//错点：遗漏开启GPIOA的外设时钟位于APB2
+	
+	GPIO_InitTypeDef GPIO_InitStruct;
+	GPIO_StructInit(&GPIO_InitStruct);
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_8;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStruct);
+	
+	TIM_OCInitTypeDef TIM_OCInitStruct;
+	TIM_OCStructInit(&TIM_OCInitStruct);
+	TIM_OCInitStruct.TIM_OCIdleState = TIM_OCIdleState_Reset;	//设置定时器空闲时该OC的高低电平
+	TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
+	TIM_OCInitStruct.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
+	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCNPolarity_High;
+	TIM_OCInitStruct.TIM_OutputNState = TIM_OutputNState_Disable;	//Cmd
+	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;	//Cmd
+	TIM_OCInitStruct.TIM_Pulse = 10 - 1;	//设置多少次CNT自增/自减后将CNT次数存入CCR，注意实际值=寄存器值+1
+	//上：给HC-SR04的Trig发送长达10us的TTL脉冲，模块就会进行测距
+	TIM_OC1Init(TIM1, &TIM_OCInitStruct);
+	
+	TIM_CtrlPWMOutputs(TIM1, ENABLE);
+	
+	TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
+	
+}
+
 void MyTIM_OC2Init(void) {
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	//错点：遗漏开启GPIOA的外设时钟位于APB2
 	
@@ -79,7 +107,7 @@ void MyTIM_OC2Init(void) {
 	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCNPolarity_High;
 	TIM_OCInitStruct.TIM_OutputNState = TIM_OutputNState_Disable;	//Cmd
 	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;	//Cmd
-	TIM_OCInitStruct.TIM_Pulse = 1500 - 1;	//设置CCR与CNT的比较值，注意实际值=寄存器值+1
+	TIM_OCInitStruct.TIM_Pulse = 1500 - 1;	//设置多少次CNT自增/自减后将CNT次数存入CCR，注意实际值=寄存器值+1
 	TIM_OC2Init(TIM1, &TIM_OCInitStruct);
 	
 	TIM_CtrlPWMOutputs(TIM1, ENABLE);

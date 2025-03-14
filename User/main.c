@@ -7,13 +7,20 @@
 #include "MyADC.h"
 #include "MyDMA.h"
 #include "MyTIM.h"
+#include "MyEXTI.h"
 
 
 int main(void)
 {	
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//NVIC优先级分组的配置对所有中断请求是统一的
 	
 	MyTIM_Init();
+	MyTIM_OC1Init();
 	MyTIM_OC2Init();
 	OLED_Init();
 	OLED_Clear();
@@ -76,7 +83,7 @@ int main(void)
 //	HALF配置PA0,PA1,PB0,PB1的DAC和DMA
 //	OK配置TIM1
 //	OK配置舵机——PWM
-//	配置超声波模块——PWM && GPIO
+//	HALF配置超声波模块——PWM && GPIO
 //	配置TB6612——PWM
 //	配置生长灯继电器——GPIO1
 //	配置气泵继电器——GPIO
@@ -85,6 +92,7 @@ int main(void)
 //	配置DS28B12——OneWire
 //	配置WS2812——OneWire
 //	配置ESP8266 01S——USART3
+//	统筹NVIC优先级
 //	配置MQTT:MCU——Server
 //	配置时间系统
 //	设计鱼缸、PCB

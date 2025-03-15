@@ -26,7 +26,7 @@ void Serial_Init(
 	uint16_t GPIO_Pin_Rx;
 		
 			
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//´íµã£ºÒÅÂ©NVIC
+	//NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//´íµã£ºÒÅÂ©NVIC
 	
 	NVIC_InitTypeDef NVIC_InitStruct;
 	

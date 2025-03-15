@@ -28,5 +28,3 @@
 .\objects\myadc.o: .\Library\stm32f10x_usart.h
 .\objects\myadc.o: .\Library\stm32f10x_wwdg.h
 .\objects\myadc.o: .\Library\misc.h
-.\objects\myadc.o: Hardware\OLED.h
-.\objects\myadc.o: .\System\Delay.h

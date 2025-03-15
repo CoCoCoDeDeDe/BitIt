@@ -1,4 +1,5 @@
 .\objects\mytim.o: System\MyTIM.c
+.\objects\mytim.o: System\MyTIM.h
 .\objects\mytim.o: .\Start\stm32f10x.h
 .\objects\mytim.o: .\Start\core_cm3.h
 .\objects\mytim.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -29,3 +30,4 @@
 .\objects\mytim.o: .\Library\stm32f10x_wwdg.h
 .\objects\mytim.o: .\Library\misc.h
 .\objects\mytim.o: .\Hardware\OLED.h
+.\objects\mytim.o: .\Hardware\Serial.h

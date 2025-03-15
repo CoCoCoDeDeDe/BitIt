@@ -4,16 +4,17 @@
 //
 //===============================
 
-#include "stm32f10x.h"                  // Device header
-#include "OLED.h"
+#include "MyTIM.h"                  // Device header
 
 uint16_t MyTIM_TIM1_overflow_count_IC1;
 uint32_t MyTIM_TIM1_test_count = 0;
 
+/**
+  * @brief  TIM1初始化
+  * @param  无
+  * @retval 无
+  */
 void MyTIM_Init(void) {
-	
-	//Clock==========
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 	
 	//Triger==========
 	TIM_InternalClockConfig(TIM1);
@@ -60,92 +61,7 @@ void MyTIM_Init(void) {
 	//Cmd==========
 	TIM_Cmd(TIM1, ENABLE);
 	
-}
-
-//下：TIM1->OC1->GPIOA->PIN8->HC-SR04->Trig
-void MyTIM_OC1Init(void) {
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	//错点：遗漏开启GPIOA的外设时钟位于APB2
-	
-	GPIO_InitTypeDef GPIO_InitStruct;
-	GPIO_StructInit(&GPIO_InitStruct);
-	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_8;
-	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStruct);
-	
-	TIM_OCInitTypeDef TIM_OCInitStruct;
-	TIM_OCStructInit(&TIM_OCInitStruct);
-	TIM_OCInitStruct.TIM_OCIdleState = TIM_OCIdleState_Reset;	//设置定时器空闲时该OC的高低电平
-	TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
-	TIM_OCInitStruct.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
-	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCNPolarity_High;
-	TIM_OCInitStruct.TIM_OutputNState = TIM_OutputNState_Disable;	//Cmd
-	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;	//Cmd
-	TIM_OCInitStruct.TIM_Pulse = 10 - 1;	//设置多少次CNT自增/自减后将CNT次数存入CCR，注意实际值=寄存器值+1
-	//上：给HC-SR04的Trig发送长达10us的TTL脉冲，模块就会进行测距
-	TIM_OC1Init(TIM1, &TIM_OCInitStruct);
-	
-	TIM_CtrlPWMOutputs(TIM1, ENABLE);
-	
-	TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
-	
-}
-
-//下：TIM1->OC2->GPIOA->PIN9->SG90->Signal
-void MyTIM_OC2Init(void) {
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	//错点：遗漏开启GPIOA的外设时钟位于APB2
-	
-	GPIO_InitTypeDef GPIO_InitStruct;
-	GPIO_StructInit(&GPIO_InitStruct);
-	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_9;
-	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStruct);
-	
-	TIM_OCInitTypeDef TIM_OCInitStruct;
-	TIM_OCStructInit(&TIM_OCInitStruct);
-	TIM_OCInitStruct.TIM_OCIdleState = TIM_OCIdleState_Reset;	//设置定时器空闲时该OC的高低电平
-	TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
-	TIM_OCInitStruct.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
-	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCNPolarity_High;
-	TIM_OCInitStruct.TIM_OutputNState = TIM_OutputNState_Disable;	//Cmd
-	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;	//Cmd
-	TIM_OCInitStruct.TIM_Pulse = 1000 - 1;	//设置多少次CNT自增/自减后将CNT次数存入CCR，注意实际值=寄存器值+1
-	TIM_OC2Init(TIM1, &TIM_OCInitStruct);
-	
-	TIM_CtrlPWMOutputs(TIM1, ENABLE);
-	
-	TIM_OC2PreloadConfig(TIM1, TIM_OCPreload_Enable);
-	
-}
-
-//下：错点：把PA11搞成OC3。答案：PA11——OC4, PA10——OC3
-//下：TIM1->OC4->GPIOA->PIN11->TB6612->PWMA
-void MyTIM_OC4Init(void) {
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	//错点：遗漏开启GPIOA的外设时钟位于APB2
-	
-	GPIO_InitTypeDef GPIO_InitStruct;
-	GPIO_StructInit(&GPIO_InitStruct);
-	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_11;
-	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStruct);
-	
-	TIM_OCInitTypeDef TIM_OCInitStruct;
-	TIM_OCStructInit(&TIM_OCInitStruct);
-	TIM_OCInitStruct.TIM_OCIdleState = TIM_OCIdleState_Reset;	//设置定时器空闲时该OC的高低电平
-	TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
-	TIM_OCInitStruct.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
-	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCNPolarity_High;
-	TIM_OCInitStruct.TIM_OutputNState = TIM_OutputNState_Disable;	//Cmd
-	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;	//Cmd
-	TIM_OCInitStruct.TIM_Pulse = 1 - 1;	//设置多少次CNT自增/自减后将CNT次数存入CCR，注意实际值=寄存器值
-	TIM_OC4Init(TIM1, &TIM_OCInitStruct);
-	
-	TIM_CtrlPWMOutputs(TIM1, ENABLE);
-	
-	TIM_OC4PreloadConfig(TIM1, TIM_OCPreload_Enable);
-	
+	Serial_SendStringPacket(USART2, "MyTIM_Init_End\r\n");
 }
 
 void TIM1_UP_IRQHandler() {	//错点：Handler函数名列表在startup_stm32f10x_md.s文件

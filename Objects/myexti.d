@@ -28,3 +28,4 @@
 .\objects\myexti.o: .\Library\stm32f10x_usart.h
 .\objects\myexti.o: .\Library\stm32f10x_wwdg.h
 .\objects\myexti.o: .\Library\misc.h
+.\objects\myexti.o: .\System\MyTIM.h

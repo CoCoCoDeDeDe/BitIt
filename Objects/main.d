@@ -36,3 +36,5 @@
 .\objects\main.o: .\Hardware\MyADC.h
 .\objects\main.o: .\System\MyDMA.h
 .\objects\main.o: .\System\MyTIM.h
+.\objects\main.o: .\Hardware\MyEXTI.h
+.\objects\main.o: .\Hardware\MyTB6612.h

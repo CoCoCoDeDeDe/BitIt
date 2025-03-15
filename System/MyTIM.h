@@ -8,5 +8,5 @@ void MyTIM_Init(void);
 
 void MyTIM_OC1Init(void);
 void MyTIM_OC2Init(void);
-
+void MyTIM_OC4Init(void);	//错点：遗漏OC4Init在.h中声明
 #endif

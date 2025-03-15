@@ -740,6 +740,16 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\MyEXTI.h</FilePath>
             </File>
+            <File>
+              <FileName>MyTB6612.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyTB6612.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyTB6612.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyTB6612.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

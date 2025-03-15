@@ -1,6 +1,0 @@
---c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Library -I .\User -I .\Start -I .\System -I .\Hardware
--I.\RTE\_Target_1
--ID:\YYFprogramFiles\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
--ID:\YYFprogramFiles\Keil5\ARM\CMSIS\Include
--D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER
--o .\objects\myexti.o --omf_browse .\objects\myexti.crf --depend .\objects\myexti.d "Hardware\MyEXTI.c"

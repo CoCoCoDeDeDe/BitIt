@@ -8,6 +8,7 @@
 #include "MyDMA.h"
 #include "MyTIM.h"
 #include "MyEXTI.h"
+#include "MyTB6612.h"
 
 
 int main(void)
@@ -22,14 +23,23 @@ int main(void)
 	MyTIM_Init();
 	MyTIM_OC1Init();
 	MyTIM_OC2Init();
+	MyTIM_OC4Init();	//错点：遗漏OC4在运行程序中Init
+	MyTB6612_Init();
+	MyADC_Init();
 	OLED_Init();
 	OLED_Clear();
 	Serial_Init(USART3, 115200, 2, 2);
 	Serial_Init(USART2, 115200, 2, 2);
-	MyADC_Init();
 	
 	Serial_SendStringPacket(USART3, "USART3");
 	Serial_SendStringPacket(USART2, "USART2");
+
+	//PA12——AIN2
+	GPIO_WriteBit(GPIOA, GPIO_Pin_12, Bit_RESET);
+	//PA15——AIN1
+	GPIO_WriteBit(GPIOA, GPIO_Pin_15, Bit_SET);
+	//上：问题：为何当PWM适中、AIN1&AIN2都RESET，电机还是转
+	
 
 //	uint32_t MyTIM_TIM1_test_count_temp = MyTIM_TIM1_test_count;
 
@@ -84,7 +94,7 @@ int main(void)
 //	OK配置TIM1
 //	OK配置舵机——PWM
 //	HALF配置超声波模块——PWM && GPIO
-//	配置TB6612——PWM
+//	OK配置TB6612——PWM && GPIO
 //	配置生长灯继电器——GPIO1
 //	配置气泵继电器——GPIO
 //	配置加热器继电器——GPIO

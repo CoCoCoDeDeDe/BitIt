@@ -31,3 +31,5 @@
 .\objects\mytim.o: .\Library\misc.h
 .\objects\mytim.o: .\Hardware\OLED.h
 .\objects\mytim.o: .\Hardware\Serial.h
+.\objects\mytim.o: .\Hardware\MyHCSR04.h
+.\objects\mytim.o: .\System\MyTIM.h

@@ -37,8 +37,10 @@
 .\objects\main.o: .\System\MyTIM.h
 .\objects\main.o: .\Hardware\OLED.h
 .\objects\main.o: .\Hardware\MyHCSR04.h
+.\objects\main.o: .\System\MyTIM.h
 .\objects\main.o: .\Hardware\MySG90.h
 .\objects\main.o: .\Hardware\MyWaterPump.h
+.\objects\main.o: .\System\MyTIM2.h
 .\objects\main.o: .\Hardware\MyWaterQualitySensor.h
 .\objects\main.o: .\Hardware\MySoilMoistureSensor.h
 .\objects\main.o: .\Hardware\MyLightSensor.h

@@ -4,6 +4,9 @@ int main(void)
 {	
 	MyAllInit_InitAll();
 		
+	OLED_Clear();
+	
+	OLED_ShowString(1, 1, "666");
 
 //	uint32_t MyTIM_TIM1_test_count_temp = MyTIM_TIM1_test_count;
 
@@ -25,14 +28,14 @@ int main(void)
 		
 		
 		Delay_ms(500);
-		OLED_ShowString(1, 1, "                ");
-		OLED_ShowNum(1, 1, MyADCAndDMA_Result[0], 4);
-		OLED_ShowString(2, 1, "                ");
-		OLED_ShowNum(2, 1, MyADCAndDMA_Result[1], 4);
-		OLED_ShowString(3, 1, "                ");
-		OLED_ShowNum(3, 1, MyADCAndDMA_Result[2], 4);
-		OLED_ShowString(4, 1, "                ");
-		OLED_ShowNum(4, 1, MyADCAndDMA_Result[3], 4);
+//		OLED_ShowString(1, 1, "                ");
+//		OLED_ShowNum(1, 1, MyADCAndDMA_Result[0], 4);
+//		OLED_ShowString(2, 1, "                ");
+//		OLED_ShowNum(2, 1, MyADCAndDMA_Result[1], 4);
+//		OLED_ShowString(3, 1, "                ");
+//		OLED_ShowNum(3, 1, MyADCAndDMA_Result[2], 4);
+//		OLED_ShowString(4, 1, "                ");
+//		OLED_ShowNum(4, 1, MyTIM2_count, 16);
 
 		
 		

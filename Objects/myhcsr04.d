@@ -32,3 +32,4 @@
 .\objects\myhcsr04.o: .\System\MyTIM.h
 .\objects\myhcsr04.o: .\Hardware\OLED.h
 .\objects\myhcsr04.o: .\Hardware\Serial.h
+.\objects\myhcsr04.o: .\Hardware\MyHCSR04.h

@@ -78,10 +78,12 @@ void MyAllInit_InitAll() {
 	Delay_ms(10);
 	
 	MyTIM_Init();
-	MyHCSR04_Trig_Init(1000);	//PA8-OC1
-	MyHCSR04_Echo_Init();	//PB15-EXTI
 	MySG90_Init(1500);		//PA9-OC2
 	MyWaterPump_Init(500);	//PA10-OC3
+	
+//	MyTIM2_Init();
+	MyHCSR04_Trig_Init();	//PA8-OC1
+	MyHCSR04_Echo_Init();	//PB15-EXTI
 	
 	MyWaterQualitySensor_Init();
 	MySoilMoistureSensor_Init();
@@ -89,7 +91,6 @@ void MyAllInit_InitAll() {
 	MyADCAndDMA_Init(3);
 	
 	OLED_Init();
-	OLED_Clear();
 	
 	Serial_SendStringPacket(USART2, "MyAllInit_InitAll_End\r\n");
 }

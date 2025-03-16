@@ -1,29 +1,13 @@
 #include "MyHCSR04.h"
 
 //下：HC_SR04->Trig——PA8——OC1——TIM1
-void MyHCSR04_Trig_Init(uint16_t TIM_Pulse) {
+void MyHCSR04_Trig_Init(void) {
 	GPIO_InitTypeDef GPIO_InitStruct;
 	GPIO_StructInit(&GPIO_InitStruct);
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_8;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_12;
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStruct);
-	
-	TIM_OCInitTypeDef TIM_OCInitStruct;
-	TIM_OCStructInit(&TIM_OCInitStruct);
-	TIM_OCInitStruct.TIM_OCIdleState = TIM_OCIdleState_Reset;	//设置定时器空闲时该OC的高低电平
-	TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
-	TIM_OCInitStruct.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
-	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCNPolarity_High;
-	TIM_OCInitStruct.TIM_OutputNState = TIM_OutputNState_Disable;	//Cmd
-	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;	//Cmd
-	TIM_OCInitStruct.TIM_Pulse = TIM_Pulse - 1;	//设置多少次CNT自增/自减后将CNT次数存入CCR，注意实际值=寄存器值+1
-	//上：给HC-SR04的Trig发送长达10us的TTL脉冲，模块就会进行测距
-	TIM_OC1Init(TIM1, &TIM_OCInitStruct);
-	
-	TIM_CtrlPWMOutputs(TIM1, ENABLE);
-	
-	TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
 	
 	Serial_SendStringPacket(USART2, "MyHCSR04_Trig_Init_End\r\n");
 }
@@ -72,6 +56,13 @@ void EXTI15_10_IRQHandler(void) {
 	EXTI_ClearITPendingBit(EXTI_Line15);
 }
 
-
+void MyHCSR04_Tick(void) {
+	static uint16_t tickCount = 0;	//static变量默认初始化为0
+	tickCount++;
+	if(tickCount >= 3) {	//TCNT = TIT = 20ms	, TtickCount = 60ms
+		tickCount = 0;
+		
+	}
+}
 
 

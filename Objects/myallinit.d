@@ -35,9 +35,11 @@
 .\objects\myallinit.o: Hardware\Serial.h
 .\objects\myallinit.o: .\System\MyTIM.h
 .\objects\myallinit.o: .\Hardware\OLED.h
-.\objects\myallinit.o: Hardware\MyHCSR04.h
+.\objects\myallinit.o: .\Hardware\MyHCSR04.h
+.\objects\myallinit.o: .\System\MyTIM.h
 .\objects\myallinit.o: Hardware\MySG90.h
 .\objects\myallinit.o: Hardware\MyWaterPump.h
+.\objects\myallinit.o: .\System\MyTIM2.h
 .\objects\myallinit.o: Hardware\MyWaterQualitySensor.h
 .\objects\myallinit.o: Hardware\MySoilMoistureSensor.h
 .\objects\myallinit.o: Hardware\MyLightSensor.h

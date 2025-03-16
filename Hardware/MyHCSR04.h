@@ -10,9 +10,11 @@
 
 #include "Serial.h"
 
+
 extern uint16_t HCSR04_distance;
 
-void MyHCSR04_Trig_Init(uint16_t TIM_Pulse);
+void MyHCSR04_Trig_Init(void);
 void MyHCSR04_Echo_Init(void);
+void MyHCSR04_Tick(void);
 
 #endif

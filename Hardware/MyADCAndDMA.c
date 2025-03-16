@@ -76,7 +76,7 @@ void MyADCAndDMA_Init(uint8_t ADC_Ch_Num) {
 	ADC_SoftwareStartConvCmd(ADC1, ENABLE);
 	
 	//Log=====
-	Serial_SendStringPacket(USART2, "MyADCAndDMA_Init_End\r\n");
+	//Serial_SendStringPacket(USART2, "MyADCAndDMA_Init_End\r\n");
 }
 	//ADC1通道配置
 	//	通道0	PA0

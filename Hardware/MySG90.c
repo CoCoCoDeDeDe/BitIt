@@ -24,6 +24,6 @@ void MySG90_Init(uint16_t TIM_Pulse) {
 	
 	TIM_OC2PreloadConfig(TIM1, TIM_OCPreload_Enable);
 	
-	Serial_SendStringPacket(USART2, "MySG90_Init_End\r\n");
+	//Serial_SendStringPacket(USART2, "MySG90_Init_End\r\n");
 }
 

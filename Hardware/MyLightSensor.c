@@ -15,5 +15,5 @@ void MyLightSensor_Init(void) {
 	//ADCRegularChannel=====
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_9, 3, ADC_SampleTime_55Cycles5);
 	
-	Serial_SendStringPacket(USART2, "MyLightSensor_Init_End\r\n");
+	//Serial_SendStringPacket(USART2, "MyLightSensor_Init_End\r\n");
 }

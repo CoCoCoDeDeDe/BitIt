@@ -696,16 +696,6 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>MyAllInit.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\MyAllInit.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyAllInit.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hardware\MyAllInit.h</FilePath>
-            </File>
-            <File>
               <FileName>Serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\Serial.c</FilePath>
@@ -809,11 +799,6 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\User\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>main.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\User\main.h</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_conf.h</FileName>

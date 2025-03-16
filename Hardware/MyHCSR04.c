@@ -9,7 +9,7 @@ void MyHCSR04_Trig_Init(void) {
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStruct);
 	
-	Serial_SendStringPacket(USART2, "MyHCSR04_Trig_Init_End\r\n");
+	//Serial_SendStringPacket(USART2, "MyHCSR04_Trig_Init_End\r\n");
 }
 
 void MyHCSR04_Echo_Init(void) {

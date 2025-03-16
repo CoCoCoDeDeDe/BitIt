@@ -61,7 +61,7 @@ void MyTIM_Init(void) {
 	//Cmd==========
 	TIM_Cmd(TIM1, ENABLE);
 	
-	Serial_SendStringPacket(USART2, "MyTIM_Init_End\r\n");
+	//Serial_SendStringPacket(USART2, "MyTIM_Init_End\r\n");
 }
 
 void TIM1_UP_IRQHandler() {	//错点：Handler函数名列表在startup_stm32f10x_md.s文件

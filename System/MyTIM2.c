@@ -27,6 +27,8 @@ void MyTIM2_Init(void) {
 	NVIC_Init(&NVIC_InitStruct);
 	
 	TIM_Cmd(TIM2, ENABLE);
+	
+	//Serial_SendStringPacket(USART2, "MyTIM2_Init_End\r\n");
 }
 
 //void TIM2_IRQHandler(void) {

@@ -1,14 +1,71 @@
-#include "main.h"
+#include "stm32f10x.h"                  // Device header
+
+#include <string.h>
+
+#include "Array.h"
+
+#include "Delay.h"
+
+#include "Serial.h"
+
+#include "MyTIM.h"
+#include "MySG90.h"
+#include "MyWaterPump.h"
+
+#include "MyTIM2.h"
+#include "MyHCSR04.h"
+
+#include "MyWaterQualitySensor.h"
+#include "MySoilMoistureSensor.h"
+#include "MyLightSensor.h"
+#include "MyADCAndDMA.h"
+
+#include "OLED.h"
 
 int main(void)
 {	
-	MyAllInit_InitAll();
-		
+//RCC=====
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+	
+//NVIC_Group=====
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	
+	//上：NVIC优先级分组的配置对所有中断请求是统一的
+	
+//Init=====
+	Serial_Init(USART3, 115200, 2, 2);	//Serial1——ESP8266
+	Serial_SendStringPacket(USART3, "Serial3_On\r\n");
+	Serial_Init(USART2, 115200, 2, 2);	//Serail2——PC
+	Serial_SendStringPacket(USART2, "Serial2_On\r\n");
+	
+	Delay_ms(10);	//串口初始化后的等待
+	
+	MyTIM_Init();
+	MySG90_Init(1500);		//PA9-OC2
+	MyWaterPump_Init(500);	//PA10-OC3
+	
+//MyTIM2_Init();
+	MyHCSR04_Trig_Init();	//PA8-OC1
+	MyHCSR04_Echo_Init();	//PB15-EXTI
+	
+	MyWaterQualitySensor_Init();
+	MySoilMoistureSensor_Init();
+	MyLightSensor_Init();
+	MyADCAndDMA_Init(3);
+	
+	OLED_Init();
 	OLED_Clear();
 	
+//Run=====
+		
+	
 	OLED_ShowString(1, 1, "666");
-
-//	uint32_t MyTIM_TIM1_test_count_temp = MyTIM_TIM1_test_count;
 
 	while(1) {
 //	if(Serial_RxFlag[1] == 1) {
@@ -26,7 +83,6 @@ int main(void)
 //		Serial_RxFlag[3] = 0;
 //	}
 		
-		
 		Delay_ms(500);
 //		OLED_ShowString(1, 1, "                ");
 //		OLED_ShowNum(1, 1, MyADCAndDMA_Result[0], 4);
@@ -37,17 +93,7 @@ int main(void)
 //		OLED_ShowString(4, 1, "                ");
 //		OLED_ShowNum(4, 1, MyTIM2_count, 16);
 
-		
-		
-//		if( MyTIM_TIM1_test_count != MyTIM_TIM1_test_count_temp )
-//		{
-//			OLED_ShowString(1, 1, "                ");
-//			OLED_ShowNum(1, 1, MyTIM_TIM1_test_count, 8);
-//		}
-		
 	}
-	
-	
 	
 }
 
@@ -62,6 +108,8 @@ int main(void)
 //	OK配置TB6612——PWM && GPIO
 //	OK规范各模块代码
 //	OK完善AllInit.c\AllInit.h
+//	OK改回main中Init
+//	修OLED Bug
 //	HALF配置超声波模块——PWM && GPIO
 //	配置生长灯继电器——GPIO1
 //	配置气泵继电器——GPIO
@@ -85,8 +133,3 @@ int main(void)
 //	调查水泵模块原理
 //	OK研究继电器
 //	配置与USART3通信内容显示的方案
-
-
-
-
-

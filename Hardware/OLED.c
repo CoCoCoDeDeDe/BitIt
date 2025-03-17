@@ -2,8 +2,8 @@
 #include "OLED_Font.h"
 
 /*引脚配置*/
-#define OLED_W_SCL(x)		GPIO_WriteBit(GPIOC, GPIO_Pin_15, (BitAction)(x))
-#define OLED_W_SDA(x)		GPIO_WriteBit(GPIOC, GPIO_Pin_14, (BitAction)(x))
+#define OLED_W_SCL(x)		GPIO_WriteBit(GPIOC, GPIO_Pin_14, (BitAction)(x))
+#define OLED_W_SDA(x)		GPIO_WriteBit(GPIOC, GPIO_Pin_15, (BitAction)(x))
 
 /*引脚初始化*/
 void OLED_I2C_Init(void)
@@ -13,9 +13,9 @@ void OLED_I2C_Init(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
- 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;
+ 	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
  	GPIO_Init(GPIOC, &GPIO_InitStructure);
 	
 	OLED_W_SCL(1);
@@ -327,11 +327,11 @@ void OLED_Power_Inite(void)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);	//配置B6、B7作为OLED屏的电源
 	GPIO_InitTypeDef GPIO_InitStructure2;
 	GPIO_InitStructure2.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_InitStructure2.GPIO_Pin = GPIO_Pin_15 | GPIO_Pin_14;
+	GPIO_InitStructure2.GPIO_Pin = GPIO_Pin_14 | GPIO_Pin_15;
 	GPIO_InitStructure2.GPIO_Speed = GPIO_Speed_50MHz;
  	GPIO_Init(GPIOC, &GPIO_InitStructure2);
-	GPIO_WriteBit(GPIOC, GPIO_Pin_15, Bit_RESET);
-	GPIO_WriteBit(GPIOC, GPIO_Pin_14, Bit_SET);
+	GPIO_WriteBit(GPIOC, GPIO_Pin_14, Bit_RESET);
+	GPIO_WriteBit(GPIOC, GPIO_Pin_15, Bit_SET);
 }
 
 

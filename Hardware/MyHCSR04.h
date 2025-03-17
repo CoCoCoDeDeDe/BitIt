@@ -6,15 +6,31 @@
 
 #include "stm32f10x.h"                  // Device header
 
+#include "Array.h"
+
+#include "Delay.h"
+
 #include "MyTIM.h"
 
 #include "Serial.h"
 
+extern float MyHCSR04_Distance_mm;
 
-extern uint16_t HCSR04_distance;
 
 void MyHCSR04_Trig_Init(void);
 void MyHCSR04_Echo_Init(void);
-void MyHCSR04_Tick(void);
+
+void MyHCSR04_SETer(void);
+void MyHCSR04_RESETer(void);
+
+extern uint32_t MyHCSR04_EchoTimerStart;
+extern uint32_t MyHCSR04_EchoTimerResult;
+
+void MyHCSR04_EchoTimerSM(void);
+float MyHCSR04_ResultFilter(void);
+
+static float MyHCSR04_Distance_mm;
+
+uint16_t MyHCSR04_DistanceCounter_mm(void);
 
 #endif

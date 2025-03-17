@@ -12,7 +12,6 @@
 #include "MySG90.h"
 #include "MyWaterPump.h"
 
-#include "MyTIM2.h"
 #include "MyHCSR04.h"
 
 #include "MyWaterQualitySensor.h"
@@ -25,13 +24,21 @@
 int main(void)
 {	
 //RCC=====
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);	//错点：用EXTI要开启AFIO
+
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+	
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 	
 //NVIC_Group=====
@@ -39,7 +46,7 @@ int main(void)
 	//上：NVIC优先级分组的配置对所有中断请求是统一的
 	
 //Init=====
-	Serial_Init(USART3, 115200, 2, 2);	//Serial1——ESP8266
+	Serial_Init(USART3, 115200, 2, 1);	//Serial1——ESP8266
 	Serial_SendStringPacket(USART3, "Serial3_On\r\n");
 	Serial_Init(USART2, 115200, 2, 2);	//Serail2——PC
 	Serial_SendStringPacket(USART2, "Serial2_On\r\n");
@@ -50,9 +57,11 @@ int main(void)
 	MySG90_Init(1500);		//PA9-OC2
 	MyWaterPump_Init(500);	//PA10-OC3
 	
-//MyTIM2_Init();
+	MyTIM2_Init();
 	MyHCSR04_Trig_Init();	//PA8-OC1
 	MyHCSR04_Echo_Init();	//PB15-EXTI
+	
+	MyTIM3_Init();
 	
 	MyWaterQualitySensor_Init();
 	MySoilMoistureSensor_Init();
@@ -63,73 +72,95 @@ int main(void)
 	OLED_Clear();
 	
 //Run=====
-		
 	
-	OLED_ShowString(1, 1, "666");
-
+	OLED_ShowString(2, 1, "1212312313");
+	
 	while(1) {
-//	if(Serial_RxFlag[1] == 1) {
-//		OLED_ShowString(1, 1, "USART3:");
-//		OLED_ShowString(2, 1, "                ");
-//		OLED_ShowString(2, 1, Serial_Rx1StringPacket);
+//		if(Serial_RxFlag[1] == 1) {
+//			OLED_ShowString(1, 1, "USART3:");
+//			OLED_ShowString(2, 1, "                ");
+//			OLED_ShowString(2, 1, Serial_Rx1StringPacket);
+//			
+//			Serial_RxFlag[1] = 0;
+//		}
 //		
-//		Serial_RxFlag[1] = 0;
-//	}
-//	if (Serial_RxFlag[3] == 1) {
-//		OLED_ShowString(3, 1, "USART2:");
-//		OLED_ShowString(4, 1, "                ");
-//		OLED_ShowString(4, 1, Serial_Rx2StringPacket);
+//		if (Serial_RxFlag[3] == 1) {
+//			OLED_ShowString(3, 1, "USART2:");
+//			OLED_ShowString(4, 1, "                ");
+//			OLED_ShowString(4, 1, Serial_Rx2StringPacket);
+//			
+//			Serial_RxFlag[3] = 0;
+//		}
 //		
-//		Serial_RxFlag[3] = 0;
-//	}
-		
-		Delay_ms(500);
-//		OLED_ShowString(1, 1, "                ");
-//		OLED_ShowNum(1, 1, MyADCAndDMA_Result[0], 4);
-//		OLED_ShowString(2, 1, "                ");
-//		OLED_ShowNum(2, 1, MyADCAndDMA_Result[1], 4);
-//		OLED_ShowString(3, 1, "                ");
-//		OLED_ShowNum(3, 1, MyADCAndDMA_Result[2], 4);
-//		OLED_ShowString(4, 1, "                ");
-//		OLED_ShowNum(4, 1, MyTIM2_count, 16);
 
+//		
+//			OLED_ShowString(2, 1, "                ");
+//			OLED_ShowNum(2, 1, MyADCAndDMA_Result[1], 4);
+//			OLED_ShowString(3, 1, "                ");
+//			OLED_ShowNum(3, 1, MyADCAndDMA_Result[2], 4);
+//			OLED_ShowString(4, 1, "                ");
+//			OLED_ShowNum(4, 1, 999, 16);
+
+		uint16_t MyADCAndDMA_Result0temp;
+		if(MyADCAndDMA_Result0temp != MyADCAndDMA_Result[0]) {
+			OLED_ShowString(1, 1, "                ");
+			OLED_ShowNum(1, 1, MyADCAndDMA_Result[0], 4);
+			
+			MyADCAndDMA_Result0temp = MyADCAndDMA_Result[0];
+		}
+		
+//		float HCSR04_distanceTemp = HCSR04_distance;
+//		if(HCSR04_distanceTemp != HCSR04_distance) {
+//			OLED_ShowString(3, 1, "                ");
+//			OLED_ShowNum(3, 1, (uint16_t)HCSR04_distance, 4);
+//			
+//			HCSR04_distanceTemp = HCSR04_distance;
+//		}
+		
+		OLED_ShowNum(3, 1, (uint16_t)MyHCSR04_DistanceCounter_mm(), 4);
+		
 	}
 	
 }
 
-//Things TO DO
-//  OK修复Tx
-//	OK修复Rx
-//	OK配置USART3的接收字符串
-//	OK配置USART3的发送字符串
-//	HALF配置PA0,PA1,PB0,PB1的DAC和DMA
-//	OK配置TIM1
-//	OK配置舵机——PWM
-//	OK配置TB6612——PWM && GPIO
-//	OK规范各模块代码
-//	OK完善AllInit.c\AllInit.h
-//	OK改回main中Init
-//	修OLED Bug
-//	HALF配置超声波模块——PWM && GPIO
-//	配置生长灯继电器——GPIO1
-//	配置气泵继电器——GPIO
-//	配置加热器继电器——GPIO
-//	配置DHT11——OneWire
-//	配置DS28B12——OneWire
-//	配置WS2812——OneWire
-//	配置ESP8266 01S——USART3
-//	统筹NVIC优先级
-//	配置MQTT:MCU——Server
-//	配置时间系统、
-//	设计鱼缸、PCB、喂食器
-//OLD TASK
-//	HALF调查各个外设的现有代码和库
-//	OK调查土壤湿度传感器原理
-//	OK调查水温传感器原理
-//	重新配置DAC+DMA
-//	重新规划引脚
-//	OK调查DHT11原理
-//	调查超声波模块原理
-//	调查水泵模块原理
-//	OK研究继电器
-//	配置与USART3通信内容显示的方案
+void TIM1_UP_IRQHandler() {		//IT per 20ms
+	if(TIM_GetITStatus(TIM1, TIM_IT_Update) == SET) {
+		TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
+		
+	}
+}
+
+void TIM2_IRQHandler(void) {
+	if(TIM_GetITStatus(TIM2, TIM_IT_Update) == SET) {
+		
+		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+		
+	}
+}
+
+void TIM3_IRQHandler(void) {
+	if (TIM_GetITStatus(TIM3, TIM_IT_Update) == SET ) {
+		
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+		
+		MyTIM_3Timer1();	//提供周期为80us,从0自增到79的MyTIM_3Timer1Count
+		
+		MyHCSR04_SETer();
+		
+		MyHCSR04_RESETer();
+		
+	}
+}
+
+void EXTI15_10_IRQHandler(void) {	//EXTI Line 10to15的中断是合并的
+	if(EXTI_GetITStatus(EXTI_Line15) == SET) {
+		
+		EXTI_ClearITPendingBit(EXTI_Line15);
+		
+		MyHCSR04_EchoTimerSM();
+		
+		
+	}
+}
+
+

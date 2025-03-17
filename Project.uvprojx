@@ -680,16 +680,6 @@
               <FileType>5</FileType>
               <FilePath>.\System\MyTIM.h</FilePath>
             </File>
-            <File>
-              <FileName>MyTIM2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\MyTIM2.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyTIM2.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\MyTIM2.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -790,11 +780,26 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\MyLightSensor.h</FilePath>
             </File>
+            <File>
+              <FileName>MyOLED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyOLED.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyOLED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyOLED.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>User</GroupName>
           <Files>
+            <File>
+              <FileName>CHANGELOG.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\CHANGELOG.txt</FilePath>
+            </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>

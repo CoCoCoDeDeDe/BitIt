@@ -1,20 +1,11 @@
-//===============================
-//PWM1-OC1——超声波发射
-//
-//
-//===============================
-
 #include "MyTIM.h"                  // Device header
 
 uint16_t MyTIM_TIM1_overflowCount_forHCSR04;
 uint32_t MyTIM_TIM1_test_count = 0;
 
-/**
-  * @brief  TIM1初始化
-  * @param  无
-  * @retval 无
-  */
-void MyTIM_Init(void) {
+uint32_t MyTIM2_count = 0;
+
+void MyTIM_Init(void) {	//fCNT=50Hz,TCNT=20ms
 	
 	//Triger==========
 	TIM_InternalClockConfig(TIM1);
@@ -46,14 +37,14 @@ void MyTIM_Init(void) {
 	TIM_TimeBaseInit(TIM1, &TIME_TimeBaseInitStruct);
 	
 	//ITConfig==========
+	TIM_ClearFlag(TIM1, TIM_IT_Update);
 	TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);
-	
 	
 	//NVIC==========
 	NVIC_InitTypeDef NVIC_InitStruct;
 	NVIC_InitStruct.NVIC_IRQChannel = TIM1_UP_IRQn;	//NVIC指向的中断请求配置变量存储在stm32f10x.h文件中
 	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 2;
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 3;
 	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 2;
 	
 	NVIC_Init(&NVIC_InitStruct);
@@ -64,18 +55,69 @@ void MyTIM_Init(void) {
 	//Serial_SendStringPacket(USART2, "MyTIM_Init_End\r\n");
 }
 
-void TIM1_UP_IRQHandler() {	//错点：Handler函数名列表在startup_stm32f10x_md.s文件
+void MyTIM2_Init(void) {	//fCNT=1000Hz,TCNT=0.001s=1000us
+	TIM_InternalClockConfig(TIM2);
 	
-	if(TIM_GetITStatus(TIM1, TIM_IT_Update) == SET)
-	{
-		MyTIM_TIM1_overflowCount_forHCSR04 ++;	//供IC1在其自己的中断中判断ARR是否重装以及重装了几次
-		
-		MyHCSR04_Tick();
-		
-		//MyTIM_TIM1_test_count ++;
-		
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
+	TIM_TimeBaseStructInit(&TIM_TimeBaseInitStruct);
+	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Down;
+	TIM_TimeBaseInitStruct.TIM_Prescaler = 720 - 1;	//TCKCNT
+	TIM_TimeBaseInitStruct.TIM_Period = 100 - 1;	//TCNT = 1000us = 0.001s
+	TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 1 -1;
+	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseInitStruct);
+	
+	TIM_ClearFlag(TIM2, TIM_IT_Update);
+	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
+	
+	NVIC_InitTypeDef NVIC_InitStruct;
+	NVIC_InitStruct.NVIC_IRQChannel = TIM2_IRQn;
+	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 2;
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 2;
+	
+	NVIC_Init(&NVIC_InitStruct);
+	
+	TIM_Cmd(TIM2, ENABLE);
+	
+	//Serial_SendStringPacket(USART2, "MyTIM2_Init_End\r\n");
+}
+
+void MyTIM3_Init(void) {	//fCNT=1000Hz,TCNT=0.0001s=100us
+	
+	TIM_InternalClockConfig(TIM3);
+	
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
+	TIM_TimeBaseStructInit(&TIM_TimeBaseInitStruct);
+	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseInitStruct.TIM_Prescaler = 72 - 1;
+	TIM_TimeBaseInitStruct.TIM_Period = 100 - 1;	//fCNT=10000Hz,TCNT=100us
+	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 1 - 1 ;
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);
+	
+	TIM_ClearFlag(TIM3, TIM_IT_Update);
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+	
+	NVIC_InitTypeDef NVIC_InitStruct;
+	NVIC_InitStruct.NVIC_IRQChannel = TIM3_IRQn;
+	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 2;
+	NVIC_Init(&NVIC_InitStruct);
+	
+	TIM_Cmd(TIM3, ENABLE);
+}
+
+uint32_t MyTIM_3Timer1Count;
+
+void MyTIM_3Timer1(void){
+	if(MyTIM_3Timer1Count < 80) {
+		MyTIM_3Timer1Count ++;
+	} else{
+		MyTIM_3Timer1Count = 0;
+		MyTIM_3Timer1Count ++;
 	}
-	TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
 }
 
 

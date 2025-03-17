@@ -29,7 +29,11 @@
 .\objects\myhcsr04.o: .\Library\stm32f10x_usart.h
 .\objects\myhcsr04.o: .\Library\stm32f10x_wwdg.h
 .\objects\myhcsr04.o: .\Library\misc.h
+.\objects\myhcsr04.o: .\System\Array.h
+.\objects\myhcsr04.o: .\System\Delay.h
 .\objects\myhcsr04.o: .\System\MyTIM.h
 .\objects\myhcsr04.o: .\Hardware\OLED.h
 .\objects\myhcsr04.o: .\Hardware\Serial.h
+.\objects\myhcsr04.o: .\Hardware\MyOLED.h
+.\objects\myhcsr04.o: .\Hardware\MyADCAndDMA.h
 .\objects\myhcsr04.o: .\Hardware\MyHCSR04.h

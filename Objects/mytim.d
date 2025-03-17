@@ -31,5 +31,9 @@
 .\objects\mytim.o: .\Library\misc.h
 .\objects\mytim.o: .\Hardware\OLED.h
 .\objects\mytim.o: .\Hardware\Serial.h
+.\objects\mytim.o: .\Hardware\MyOLED.h
+.\objects\mytim.o: .\Hardware\MyADCAndDMA.h
 .\objects\mytim.o: .\Hardware\MyHCSR04.h
+.\objects\mytim.o: .\System\Array.h
+.\objects\mytim.o: .\System\Delay.h
 .\objects\mytim.o: .\System\MyTIM.h

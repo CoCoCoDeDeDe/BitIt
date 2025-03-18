@@ -22,7 +22,7 @@
 #include "OLED.h"
 
 int main(void)
-{	
+{
 //RCC=====
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
@@ -35,10 +35,10 @@ int main(void)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);	//错点：用EXTI要开启AFIO
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);//错点：用EXTI要开启AFIO
 
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
-	
+
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 	
 //NVIC_Group=====
@@ -48,33 +48,32 @@ int main(void)
 //Init=====
 	Serial_Init(USART3, 115200, 2, 1);	//Serial1——ESP8266
 	Serial_SendStringPacket(USART3, "Serial3_On\r\n");
+	
 	Serial_Init(USART2, 115200, 2, 2);	//Serail2——PC
 	Serial_SendStringPacket(USART2, "Serial2_On\r\n");
 	
 	Delay_ms(10);	//串口初始化后的等待
 	
-	MyTIM_Init();
+	MyTIM1_Init();
+	MyTIM2_Init();
+	MyTIM3_Init();
+	
 	MySG90_Init(1500);		//PA9-OC2
 	MyWaterPump_Init(500);	//PA10-OC3
 	
-	MyTIM2_Init();
 	MyHCSR04_Trig_Init();	//PA8-OC1
 	MyHCSR04_Echo_Init();	//PB15-EXTI
-	
-	MyTIM3_Init();
 	
 	MyWaterQualitySensor_Init();
 	MySoilMoistureSensor_Init();
 	MyLightSensor_Init();
+	
 	MyADCAndDMA_Init(3);
 	
 	OLED_Init();
 	OLED_Clear();
 	
 //Run=====
-	
-	OLED_ShowString(2, 1, "1212312313");
-	
 	while(1) {
 //		if(Serial_RxFlag[1] == 1) {
 //			OLED_ShowString(1, 1, "USART3:");
@@ -92,22 +91,12 @@ int main(void)
 //			Serial_RxFlag[3] = 0;
 //		}
 //		
-
-//		
 //			OLED_ShowString(2, 1, "                ");
 //			OLED_ShowNum(2, 1, MyADCAndDMA_Result[1], 4);
 //			OLED_ShowString(3, 1, "                ");
 //			OLED_ShowNum(3, 1, MyADCAndDMA_Result[2], 4);
 //			OLED_ShowString(4, 1, "                ");
 //			OLED_ShowNum(4, 1, 999, 16);
-
-		uint16_t MyADCAndDMA_Result0temp;
-		if(MyADCAndDMA_Result0temp != MyADCAndDMA_Result[0]) {
-			OLED_ShowString(1, 1, "                ");
-			OLED_ShowNum(1, 1, MyADCAndDMA_Result[0], 4);
-			
-			MyADCAndDMA_Result0temp = MyADCAndDMA_Result[0];
-		}
 		
 //		float HCSR04_distanceTemp = HCSR04_distance;
 //		if(HCSR04_distanceTemp != HCSR04_distance) {
@@ -117,13 +106,14 @@ int main(void)
 //			HCSR04_distanceTemp = HCSR04_distance;
 //		}
 		
-		OLED_ShowNum(3, 1, (uint16_t)MyHCSR04_DistanceCounter_mm(), 4);
-		
+		OLED_ShowNum(2, 1, MyTIM_2Count, 16);
+		OLED_ShowNum(3, 1, MyTIM_3Count, 16);
+		OLED_ShowNum(4, 1, MyHCSR04_GetResult_mm(), 16);
 	}
 	
 }
 
-void TIM1_UP_IRQHandler() {		//IT per 20ms
+void TIM1_UP_IRQHandler() {		//IT per 20ms=	0.02s
 	if(TIM_GetITStatus(TIM1, TIM_IT_Update) == SET) {
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
 		
@@ -132,33 +122,32 @@ void TIM1_UP_IRQHandler() {		//IT per 20ms
 
 void TIM2_IRQHandler(void) {
 	if(TIM_GetITStatus(TIM2, TIM_IT_Update) == SET) {
-		
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
 		
+		MyTIM_2Count++;
+		
+		MyHCSR04_TrigCtrler();
 	}
 }
 
-void TIM3_IRQHandler(void) {
-	if (TIM_GetITStatus(TIM3, TIM_IT_Update) == SET ) {
-		
+
+void TIM3_IRQHandler(void) {//TCKCNT=1us,TCKCNT=TIT=0.01s
+	if(TIM_GetITStatus(TIM3, TIM_IT_Update) == SET) {
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
 		
-		MyTIM_3Timer1();	//提供周期为80us,从0自增到79的MyTIM_3Timer1Count
+		MyTIM_3Count++;
 		
-		MyHCSR04_SETer();
-		
-		MyHCSR04_RESETer();
+		MyTIM3_DIV100();
 		
 	}
 }
 
 void EXTI15_10_IRQHandler(void) {	//EXTI Line 10to15的中断是合并的
 	if(EXTI_GetITStatus(EXTI_Line15) == SET) {
-		
 		EXTI_ClearITPendingBit(EXTI_Line15);
+		//Serial_SendStringPacket(USART2, "EXTI15_10_IRQHandler\r\n");
 		
-		MyHCSR04_EchoTimerSM();
-		
+		MyHCSR04_EchoCtrlerSM();
 		
 	}
 }

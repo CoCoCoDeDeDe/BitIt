@@ -711,6 +711,16 @@
               <FilePath>.\Hardware\OLED_Font.h</FilePath>
             </File>
             <File>
+              <FileName>MyOLED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyOLED.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyOLED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyOLED.h</FilePath>
+            </File>
+            <File>
               <FileName>MyHCSR04.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\MyHCSR04.c</FilePath>
@@ -779,16 +789,6 @@
               <FileName>MyLightSensor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Hardware\MyLightSensor.h</FilePath>
-            </File>
-            <File>
-              <FileName>MyOLED.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\MyOLED.c</FilePath>
-            </File>
-            <File>
-              <FileName>MyOLED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hardware\MyOLED.h</FilePath>
             </File>
           </Files>
         </Group>

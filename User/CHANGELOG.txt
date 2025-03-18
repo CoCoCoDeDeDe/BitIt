@@ -10,14 +10,15 @@ Things TO DO
 	OK	规范各模块代码
 	OK	完善AllInit.c\AllInit.h
 	OK	改回main中Init
-	OK	修OLED Bug
+	OK	修OLED Bug，该计时方法为读 (中断次数*(ARR+1)+CNT+1)*TCKCNT, CKCNT = 72MHz/(PSC+1)
 	OK配置超声波模块——PWM && GPIO
-	TODO配置生长灯继电器——GPIO1
-	TODO配置气泵继电器——GPIO
-	TODO配置加热器继电器——GPIO
+	OK修HCSR04Bug
 	TODO配置DHT11——OneWire
 	TODO配置DS28B12——OneWire
 	TODO配置WS2812——OneWire
+	TODO配置生长灯继电器——GPIO1
+	TODO配置气泵继电器——GPIO
+	TODO配置加热器继电器——GPIO
 	TODO配置ESP8266 01S——USART3
 	TODO统筹NVIC优先级
 	TODO配置MQTT:MCU——Server

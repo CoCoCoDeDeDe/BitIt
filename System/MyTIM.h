@@ -10,17 +10,12 @@
 
 #include "MyHCSR04.h"
 
-extern uint16_t MyTIM_TIM1_overflowCount_forHCSR04;
-extern uint32_t MyTIM_TIM1_test_count;
+extern uint32_t MyTIM_2Count;
+extern uint32_t MyTIM_3Count;
 
-extern uint32_t MyTIM2_count;	//错点：extern处不可初始化
-
-extern uint32_t MyTIM_3Timer1Count;
-
-void MyTIM_Init(void);
+void MyTIM1_Init(void);
 void MyTIM2_Init(void);
 void MyTIM3_Init(void);
-
-void MyTIM_3Timer1(void);
+void MyTIM3_DIV100(void);
 
 #endif

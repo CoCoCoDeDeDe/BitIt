@@ -14,23 +14,28 @@
 
 #include "Serial.h"
 
-extern float MyHCSR04_Distance_mm;
+extern EXTI_InitTypeDef EXTI_InitStruct;
 
+extern uint8_t MyHCSR04_TrigCtrler_Ctrl;
+extern uint8_t MyHCSR04_TrigSETer_Ctrl;
+
+extern uint8_t MyHCSR04_EchoCtrlerSM_Ctrl;
+extern uint32_t MyHCSR04_CountEchoSpan;
+
+extern uint8_t MyHCSR04_EchoCtrlerSM_State;
+
+extern uint16_t MyHCSR04_CountEchoSpanFiltered;
 
 void MyHCSR04_Trig_Init(void);
 void MyHCSR04_Echo_Init(void);
-
-void MyHCSR04_SETer(void);
-void MyHCSR04_RESETer(void);
-
-extern uint32_t MyHCSR04_EchoTimerStart;
-extern uint32_t MyHCSR04_EchoTimerResult;
-
-void MyHCSR04_EchoTimerSM(void);
-float MyHCSR04_ResultFilter(void);
-
-static float MyHCSR04_Distance_mm;
-
-uint16_t MyHCSR04_DistanceCounter_mm(void);
+uint16_t MyHCSR04_ResultFilter(uint32_t t);
+void MyHCSR04_TrigCtrlerSwitchOn(void);
+void MyHCSR04_TrigCtrler(void);
+void MyHCSR04_TrigSETer(void);
+void MyHCSR04_TrigRESETer(void);
+void MyHCSR04_SetEXITTrig(EXTITrigger_TypeDef mode);
+void MyHCSR04_EchoCtrlerSM(void);
+void MyHCSR04_CollectEchoSpan(void);
+uint16_t MyHCSR04_GetResult_mm(void);
 
 #endif

@@ -1,8 +1,0 @@
-#ifndef __MYTIM2_H
-#define __MYTIM2_H
-
-#include "stm32f10x.h"                  // Device header
-
-
-
-#endif

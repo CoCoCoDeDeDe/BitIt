@@ -132,7 +132,7 @@ void MyHCSR04_EchoCtrlerSM(void){//计算Echo信号相当的CNT值
 		if(MyHCSR04_EchoCtrlerSM_State == 0) {//状态0时
 			//Serial_SendStringPacket(USART2, "EchoCtrlerSM_State0_In\r\n");
 			
-			CountEchoStart=TIM_GetCounter(TIM3);//记录Echo信号开始时CNT的数值
+			CountEchoStart=TIM_GetCounter(TIM3);//记录Echo信号开始时CNT的数值,总周期短,不考虑TIM3重装
 			MyHCSR04_SetEXITTrig(EXTI_Trigger_Falling);//设置下降沿触发EXIT
 			MyHCSR04_EchoCtrlerSM_State = 1;//设置状态为1
 		} else if(MyHCSR04_EchoCtrlerSM_State == 1) {//状态1时

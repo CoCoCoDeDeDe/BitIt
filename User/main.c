@@ -13,6 +13,7 @@
 #include "MyWaterPump.h"
 
 #include "MyHCSR04.h"
+#include "MyDHT11.h"
 
 #include "MyWaterQualitySensor.h"
 #include "MySoilMoistureSensor.h"
@@ -23,6 +24,8 @@
 
 int main(void)
 {
+	Delay_ms(1000);	//等待设备电压稳定
+	
 //RCC=====
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
@@ -52,8 +55,6 @@ int main(void)
 	Serial_Init(USART2, 115200, 2, 2);	//Serail2——PC
 	Serial_SendStringPacket(USART2, "Serial2_On\r\n");
 	
-	Delay_ms(10);	//串口初始化后的等待
-	
 	MyTIM1_Init();
 	MyTIM2_Init();
 	MyTIM3_Init();
@@ -69,6 +70,8 @@ int main(void)
 	MyLightSensor_Init();
 	
 	MyADCAndDMA_Init(3);
+	
+	
 	
 	OLED_Init();
 	OLED_Clear();
@@ -106,14 +109,15 @@ int main(void)
 //			HCSR04_distanceTemp = HCSR04_distance;
 //		}
 		
-		OLED_ShowNum(2, 1, MyTIM_2Count, 16);
-		OLED_ShowNum(3, 1, MyTIM_3Count, 16);
-		OLED_ShowNum(4, 1, MyHCSR04_GetResult_mm(), 16);
+		OLED_ShowNum(1, 1, MyTIM_2Count, 16);
+		OLED_ShowNum(2, 1, MyTIM_3Count, 16);
+		OLED_ShowNum(3, 1, MyDHT11_DataArr[0], 16);
+		OLED_ShowNum(4, 1, MyDHT11_DataArr[2], 16);
 	}
 	
 }
 
-void TIM1_UP_IRQHandler() {		//IT per 20ms=	0.02s
+void TIM1_UP_IRQHandler(void) {		//IT per 20ms=	0.02s
 	if(TIM_GetITStatus(TIM1, TIM_IT_Update) == SET) {
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
 		
@@ -127,6 +131,8 @@ void TIM2_IRQHandler(void) {
 		MyTIM_2Count++;
 		
 		MyHCSR04_TrigCtrler();
+		
+		MyDHT11_WriterSM();
 	}
 }
 
@@ -139,6 +145,30 @@ void TIM3_IRQHandler(void) {//TCKCNT=1us,TCKCNT=TIT=0.01s
 		
 		MyTIM3_DIV100();
 		
+		MyDHT11_TIM3ARCounter();
+		
+		MyDHT11_ReadCheckTimer();
+	}
+}
+
+void EXTI4_IRQHandler(void) {
+	if(EXTI_GetITStatus(EXTI_Line4) == SET) {
+		EXTI_ClearITPendingBit(EXTI_Line4);
+		
+		
+	}
+}
+
+void EXTI9_5_IRQHandler(void) {	//EXTI Line 5to9的中断是合并的
+	if(EXTI_GetITStatus(EXTI_Line5) == SET) {
+		EXTI_ClearITPendingBit(EXTI_Line5);
+		
+		
+	}
+	if(EXTI_GetITStatus(EXTI_Line6) == SET) {
+	EXTI_ClearITPendingBit(EXTI_Line6);
+		
+		
 	}
 }
 
@@ -148,6 +178,8 @@ void EXTI15_10_IRQHandler(void) {	//EXTI Line 10to15的中断是合并的
 		//Serial_SendStringPacket(USART2, "EXTI15_10_IRQHandler\r\n");
 		
 		MyHCSR04_EchoCtrlerSM();
+		
+		MyDHT11_ReaderSM();
 		
 	}
 }

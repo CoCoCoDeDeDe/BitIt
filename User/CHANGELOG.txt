@@ -3,27 +3,27 @@ Things TO DO
 	OK	修复Rx
 	OK	配置USART3的接收字符串
 	OK	配置USART3的发送字符串
-	HALF配置PA0,PA1,PB0,PB1的DAC和DMA
+	HALF	配置PA0,PA1,PB0,PB1的DAC和DMA
 	OK	配置TIM1
 	OK	配置舵机——PWM
 	OK	配置TB6612——PWM && GPIO
 	OK	规范各模块代码
 	OK	完善AllInit.c\AllInit.h
 	OK	改回main中Init
-	OK	修OLED Bug，该计时方法为读 (中断次数*(ARR+1)+CNT+1)*TCKCNT, CKCNT = 72MHz/(PSC+1)
-	OK配置超声波模块——PWM && GPIO
-	OK修HCSR04Bug
-	TODO配置DHT11——OneWire
-	TODO配置DS28B12——OneWire
-	TODO配置WS2812——OneWire
-	TODO配置生长灯继电器——GPIO1
-	TODO配置气泵继电器——GPIO
-	TODO配置加热器继电器——GPIO
-	TODO配置ESP8266 01S——USART3
-	TODO统筹NVIC优先级
-	TODO配置MQTT:MCU——Server
-	TODO配置时间系统、
-	TODO设计鱼缸、PCB、喂食器
+	OK	修OLED Bug，该计时方法
+	OK	配置超声波模块——PWM && GPIO
+	OK	修HCSR04Bug
+	HALF	配置DHT11
+	TODO	配置DS28B12
+	TODO	配置WS2812
+	TODO	配置生长灯继电器
+	TODO	配置气泵继电器
+	TODO	配置加热器继电器
+	TODO	配置ESP8266 01S
+	TODO	统筹NVIC优先级
+	TODO	配置MQTT:MCU——Server
+	TODO	配置时间系统、
+	TODO	设计鱼缸、PCB、喂食器
 OLD TASK
 	HALF调查各个外设的现有代码和库
 	OK调查土壤湿度传感器原理

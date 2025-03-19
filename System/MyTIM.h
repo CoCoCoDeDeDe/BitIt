@@ -9,6 +9,7 @@
 #include "MyOLED.h"
 
 #include "MyHCSR04.h"
+#include "MyDHT11.h"
 
 extern uint32_t MyTIM_2Count;
 extern uint32_t MyTIM_3Count;

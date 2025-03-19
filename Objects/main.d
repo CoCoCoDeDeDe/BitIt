@@ -38,6 +38,7 @@
 .\objects\main.o: .\Hardware\MyADCAndDMA.h
 .\objects\main.o: .\Hardware\MyHCSR04.h
 .\objects\main.o: .\System\MyTIM.h
+.\objects\main.o: .\Hardware\MyDHT11.h
 .\objects\main.o: .\Hardware\MySG90.h
 .\objects\main.o: .\Hardware\MyWaterPump.h
 .\objects\main.o: .\Hardware\MyWaterQualitySensor.h

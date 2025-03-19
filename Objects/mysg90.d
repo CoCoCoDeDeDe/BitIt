@@ -30,3 +30,5 @@
 .\objects\mysg90.o: .\Library\stm32f10x_wwdg.h
 .\objects\mysg90.o: .\Library\misc.h
 .\objects\mysg90.o: Hardware\Serial.h
+.\objects\mysg90.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\mysg90.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h

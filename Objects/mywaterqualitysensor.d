@@ -30,3 +30,5 @@
 .\objects\mywaterqualitysensor.o: .\Library\stm32f10x_wwdg.h
 .\objects\mywaterqualitysensor.o: .\Library\misc.h
 .\objects\mywaterqualitysensor.o: Hardware\Serial.h
+.\objects\mywaterqualitysensor.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\mywaterqualitysensor.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h

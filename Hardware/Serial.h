@@ -3,6 +3,9 @@
 
 #include "stm32f10x.h"                  // Device header
 
+#include <math.h>
+#include <stdio.h>
+
 extern USART_InitTypeDef USART_InitStruct;
 extern uint8_t Serial_RxFlag[];	//错点：Serial.c中Serial_RxFlag[4]赋值后此处不能再次赋值。
 
@@ -29,4 +32,5 @@ void Serial_Auto_StateMachine(
 void Serial_SendByte(USART_TypeDef* USARTx, uint8_t Byte);
 void Serial_SendStringPacket(USART_TypeDef* USARTx, char *string);
 void Serial_SendStringPacketV2(USART_TypeDef* USARTx, char* str);
+void Serial_SendInteger(USART_TypeDef* USARTx, int num);
 #endif

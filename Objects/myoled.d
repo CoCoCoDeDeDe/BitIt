@@ -32,3 +32,5 @@
 .\objects\myoled.o: Hardware\OLED.h
 .\objects\myoled.o: Hardware\MyADCAndDMA.h
 .\objects\myoled.o: Hardware\Serial.h
+.\objects\myoled.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\myoled.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h

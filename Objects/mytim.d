@@ -29,8 +29,11 @@
 .\objects\mytim.o: .\Library\stm32f10x_usart.h
 .\objects\mytim.o: .\Library\stm32f10x_wwdg.h
 .\objects\mytim.o: .\Library\misc.h
+.\objects\mytim.o: .\Hardware\MyTest.h
 .\objects\mytim.o: .\Hardware\OLED.h
 .\objects\mytim.o: .\Hardware\Serial.h
+.\objects\mytim.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\mytim.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\mytim.o: .\Hardware\MyOLED.h
 .\objects\mytim.o: .\Hardware\MyADCAndDMA.h
 .\objects\mytim.o: .\Hardware\MyHCSR04.h

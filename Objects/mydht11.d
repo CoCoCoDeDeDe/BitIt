@@ -29,4 +29,8 @@
 .\objects\mydht11.o: .\Library\stm32f10x_usart.h
 .\objects\mydht11.o: .\Library\stm32f10x_wwdg.h
 .\objects\mydht11.o: .\Library\misc.h
+.\objects\mydht11.o: Hardware\MyTest.h
+.\objects\mydht11.o: Hardware\OLED.h
 .\objects\mydht11.o: Hardware\Serial.h
+.\objects\mydht11.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\mydht11.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h

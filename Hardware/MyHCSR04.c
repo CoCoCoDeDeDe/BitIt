@@ -28,7 +28,7 @@ void MyHCSR04_Trig_Init(void) {
 	
 	GPIO_WriteBit(GPIOTrig, PinTrig, Bit_RESET);
 	
-	//Serial_SendStringPacket(USART2, "MyHCSR04_Trig_Init_End\r\n");
+	//Serial_SendStringPacketV2(USART2, "MyHCSR04_Trig_Init_End\r\n");
 }
 
 
@@ -127,16 +127,16 @@ void MyHCSR04_EchoCtrlerSM(void){//计算Echo信号相当的CNT值
 	
 	if(MyHCSR04_EchoCtrlerSM_Ctrl == 1){
 		
-		//Serial_SendStringPacket(USART2, "EchoCtrlerSM_Ctrl_In\r\n");
+		//Serial_SendStringPacketV2(USART2, "EchoCtrlerSM_Ctrl_In\r\n");
 		
 		if(MyHCSR04_EchoCtrlerSM_State == 0) {//状态0时
-			//Serial_SendStringPacket(USART2, "EchoCtrlerSM_State0_In\r\n");
+			//Serial_SendStringPacketV2(USART2, "EchoCtrlerSM_State0_In\r\n");
 			
 			CountEchoStart=TIM_GetCounter(TIM3);//记录Echo信号开始时CNT的数值,总周期短,不考虑TIM3重装
 			MyHCSR04_SetEXITTrig(EXTI_Trigger_Falling);//设置下降沿触发EXIT
 			MyHCSR04_EchoCtrlerSM_State = 1;//设置状态为1
 		} else if(MyHCSR04_EchoCtrlerSM_State == 1) {//状态1时
-			//Serial_SendStringPacket(USART2, "EchoCtrlerSM_State1_In\r\n");
+			//Serial_SendStringPacketV2(USART2, "EchoCtrlerSM_State1_In\r\n");
 			
 			MyHCSR04_CountEchoSpan = TIM_GetCounter(TIM3) - CountEchoStart;//计算Echo信号相当的CNT值
 			MyHCSR04_CollectEchoSpan();

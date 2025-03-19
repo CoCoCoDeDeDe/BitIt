@@ -800,6 +800,16 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\MyDHT11.h</FilePath>
             </File>
+            <File>
+              <FileName>MyTest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyTest.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyTest.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyTest.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

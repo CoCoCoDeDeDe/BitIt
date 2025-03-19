@@ -3,6 +3,7 @@
 
 #include "stm32f10x.h"                  // Device header
 
+#include "MyTest.h"
 #include "Serial.h"
 
 typedef enum {
@@ -23,6 +24,9 @@ extern uint8_t MyDHT11ReadCheckTimer_Ctrl;
 
 extern uint8_t MyDHT11_Writer_Ctrl;
 extern uint8_t MyDHT11_WriterSM_State;
+extern uint32_t MyDHT11_WriterSM_Counter;
+
+extern uint8_t MyDHT11_ReadBitCount;//在成功接收1Bit时++,在接收完40BIT或者开始接收时=0
 
 extern uint8_t MyDHT11_BitsArr[];//每1个元素对应要读取的数据的每一个bit
 extern uint8_t MyDHT11_DataArr[];//每1个元素对于转换完的一个字节,不包括校验位

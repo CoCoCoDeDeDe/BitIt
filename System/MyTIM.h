@@ -3,6 +3,7 @@
 
 #include "stm32f10x.h"                  // Device header
 
+#include "MyTest.h"
 #include "OLED.h"
 #include "Serial.h"
 

@@ -31,9 +31,12 @@
 .\objects\main.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: .\System\Array.h
 .\objects\main.o: .\System\Delay.h
-.\objects\main.o: .\Hardware\Serial.h
-.\objects\main.o: .\System\MyTIM.h
+.\objects\main.o: .\Hardware\MyTest.h
 .\objects\main.o: .\Hardware\OLED.h
+.\objects\main.o: .\Hardware\Serial.h
+.\objects\main.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\main.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: .\System\MyTIM.h
 .\objects\main.o: .\Hardware\MyOLED.h
 .\objects\main.o: .\Hardware\MyADCAndDMA.h
 .\objects\main.o: .\Hardware\MyHCSR04.h

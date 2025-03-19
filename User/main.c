@@ -6,6 +6,8 @@
 
 #include "Delay.h"
 
+#include "MyTest.h"
+
 #include "Serial.h"
 
 #include "MyTIM.h"
@@ -49,11 +51,13 @@ int main(void)
 	//上：NVIC优先级分组的配置对所有中断请求是统一的
 	
 //Init=====
+	MyTest_PB5_Init();
+	
 	Serial_Init(USART3, 115200, 2, 1);	//Serial1——ESP8266
-	Serial_SendStringPacket(USART3, "Serial3_On\r\n");
+	Serial_SendStringPacketV2(USART3, "Serial3_On\r\n");
 	
 	Serial_Init(USART2, 115200, 2, 2);	//Serail2——PC
-	Serial_SendStringPacket(USART2, "Serial2_On\r\n");
+	Serial_SendStringPacketV2(USART2, "Serial2_On\r\n");
 	
 	MyTIM1_Init();
 	MyTIM2_Init();
@@ -64,6 +68,8 @@ int main(void)
 	
 	MyHCSR04_Trig_Init();	//PA8-OC1
 	MyHCSR04_Echo_Init();	//PB15-EXTI
+	
+	MyDHT11_Init();//【错点】遗漏main中运行Init
 	
 	MyWaterQualitySensor_Init();
 	MySoilMoistureSensor_Init();
@@ -109,12 +115,17 @@ int main(void)
 //			HCSR04_distanceTemp = HCSR04_distance;
 //		}
 		
-		OLED_ShowNum(1, 1, MyTIM_2Count, 16);
-		OLED_ShowNum(2, 1, MyTIM_3Count, 16);
-		OLED_ShowNum(3, 1, MyDHT11_DataArr[0], 16);
-		OLED_ShowNum(4, 1, MyDHT11_DataArr[2], 16);
+
+//		OLED_ShowNum(1, 1, MyTIM_2Count, 16);
+//		OLED_ShowNum(2, 1, MyTIM_3Count, 16);
+//		OLED_ShowNum(3, 1, MyDHT11_WriterSM_Counter, 16);
+//		OLED_ShowNum(4, 1, MyDHT11_DataArr[0], 8);
+//		OLED_ShowNum(4, 9, MyDHT11_DataArr[2], 8);
+		
+//		OLED_ShowNum(1, 1, MyDHT11_ReadIntervalCount, 16);
+
+//		OLED_ShowNum(1, 1, MyDHT11_ReadBitCount, 16);
 	}
-	
 }
 
 void TIM1_UP_IRQHandler(void) {		//IT per 20ms=	0.02s
@@ -132,7 +143,11 @@ void TIM2_IRQHandler(void) {
 		
 		MyHCSR04_TrigCtrler();
 		
+		MyDHT11_WriterSM_Counter ++;
+		
 		MyDHT11_WriterSM();
+		
+		//Serial_SendStringPacketV2(USART2, "TIM2_IRQHandler\r\n");
 	}
 }
 
@@ -148,6 +163,7 @@ void TIM3_IRQHandler(void) {//TCKCNT=1us,TCKCNT=TIT=0.01s
 		MyDHT11_TIM3ARCounter();
 		
 		MyDHT11_ReadCheckTimer();
+		
 	}
 }
 
@@ -155,7 +171,10 @@ void EXTI4_IRQHandler(void) {
 	if(EXTI_GetITStatus(EXTI_Line4) == SET) {
 		EXTI_ClearITPendingBit(EXTI_Line4);
 		
+		MyDHT11_ReaderSM();//【错点】写错在EXTI15_10_IEQHandler
 		
+		//Serial_SendStringPacketV2(USART2, "EXTI4\r\n");
+		//Serial_SendStringPacketV2(USART2, "E");
 	}
 }
 
@@ -175,11 +194,9 @@ void EXTI9_5_IRQHandler(void) {	//EXTI Line 5to9的中断是合并的
 void EXTI15_10_IRQHandler(void) {	//EXTI Line 10to15的中断是合并的
 	if(EXTI_GetITStatus(EXTI_Line15) == SET) {
 		EXTI_ClearITPendingBit(EXTI_Line15);
-		//Serial_SendStringPacket(USART2, "EXTI15_10_IRQHandler\r\n");
+		//Serial_SendStringPacketV2(USART2, "EXTI15_10_IRQHandler\r\n");
 		
 		MyHCSR04_EchoCtrlerSM();
-		
-		MyDHT11_ReaderSM();
 		
 	}
 }

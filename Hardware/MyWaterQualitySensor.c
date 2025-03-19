@@ -15,5 +15,5 @@ void MyWaterQualitySensor_Init(void) {
 	//ADCRegularChannel=====
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_55Cycles5);	
 	
-	//Serial_SendStringPacket(USART2, "MyWaterQualitySensor_Init_End\r\n");
+	//Serial_SendStringPacketV2(USART2, "MyWaterQualitySensor_Init_End\r\n");
 }

@@ -30,3 +30,5 @@
 .\objects\mylightsensor.o: .\Library\stm32f10x_wwdg.h
 .\objects\mylightsensor.o: .\Library\misc.h
 .\objects\mylightsensor.o: Hardware\Serial.h
+.\objects\mylightsensor.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\mylightsensor.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h

@@ -32,8 +32,11 @@
 .\objects\myhcsr04.o: .\System\Array.h
 .\objects\myhcsr04.o: .\System\Delay.h
 .\objects\myhcsr04.o: .\System\MyTIM.h
+.\objects\myhcsr04.o: .\Hardware\MyTest.h
 .\objects\myhcsr04.o: .\Hardware\OLED.h
 .\objects\myhcsr04.o: .\Hardware\Serial.h
+.\objects\myhcsr04.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\myhcsr04.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\myhcsr04.o: .\Hardware\MyOLED.h
 .\objects\myhcsr04.o: .\Hardware\MyADCAndDMA.h
 .\objects\myhcsr04.o: .\Hardware\MyHCSR04.h

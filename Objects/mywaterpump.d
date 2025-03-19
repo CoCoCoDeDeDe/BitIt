@@ -30,3 +30,5 @@
 .\objects\mywaterpump.o: .\Library\stm32f10x_wwdg.h
 .\objects\mywaterpump.o: .\Library\misc.h
 .\objects\mywaterpump.o: Hardware\Serial.h
+.\objects\mywaterpump.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\mywaterpump.o: D:\YYFprogramFiles\Keil5\ARM\ARMCC\Bin\..\include\stdio.h

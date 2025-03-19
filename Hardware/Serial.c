@@ -1,4 +1,4 @@
-#include "stm32f10x.h"                  // Device header
+#include "Serial.h"
 
 USART_InitTypeDef USART_InitStruct;
 
@@ -214,4 +214,9 @@ void Serial_SendStringPacketV2(USART_TypeDef* USARTx, char* str) {
     }
 }
 
+void Serial_SendInteger(USART_TypeDef* USARTx, int num) {
+    char buffer[20];
+    sprintf(buffer, "%d", num);	//#include <stdio.h>
+    Serial_SendStringPacketV2(USART2, buffer);
+}
 

@@ -104,5 +104,6 @@ void MyTIM3_DIV100(void) {//将TIM2中断再分频100，降低执行MyHCSR04_TrigCtrlerSwit
 		MyDHT11_SwitchOn();
 		
 		DIV100Count=0;//使得再经历100个MyTIM3IT才再发送Trig信号
+		
 	} 
 }

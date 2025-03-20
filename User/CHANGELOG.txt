@@ -3,7 +3,7 @@ Things TO DO
 	OK	修复Rx
 	OK	配置USART3的接收字符串
 	OK	配置USART3的发送字符串
-	HALF	配置PA0,PA1,PB0,PB1的DAC和DMA
+	HALF	配置PA0,PA1,PB0,PB1的DAC和DMA(//还不确定还有什么设备要DAC)
 	OK	配置TIM1
 	OK	配置舵机——PWM
 	OK	配置TB6612——PWM && GPIO
@@ -14,15 +14,15 @@ Things TO DO
 	OK	配置超声波模块——PWM && GPIO
 	OK	修HCSR04Bug
 	OK	配置DHT11
-	TODO	配置DS28B12
+	OK	配置生长灯继电器
+	OK	配置气泵继电器
+	OK	配置加热器继电器
+	TODO	配置DS18B20
 	TODO	配置WS2812
-	TODO	配置生长灯继电器
-	TODO	配置气泵继电器
-	TODO	配置加热器继电器
-	TODO	配置ESP8266 01S
 	TODO	统筹NVIC优先级
+	TODO	配置ESP8266 01S
 	TODO	配置MQTT:MCU——Server
-	TODO	配置时间系统、
+	TODO	配置时间系统
 	TODO	设计鱼缸、PCB、喂食器
 OLD TASK
 	HALF调查各个外设的现有代码和库

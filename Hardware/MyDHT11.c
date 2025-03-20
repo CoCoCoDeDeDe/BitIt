@@ -300,7 +300,7 @@ void MyDHT11_ReaderSM(void) {
 		
 			if(60 <= MyDHT11_Count_ReadInterval && MyDHT11_Count_ReadInterval <= 90) {
 					
-					MyDHT11_Count_ReadInterval_Start();
+					MyDHT11_Count_ReadInterval_Start();//【错点】误写在if(40<=MyDHT11_Count_ReadBit){}
 					MyDHT11_BitsArr[MyDHT11_Count_ReadBit ++] = 0;
 					Serial_SendByte(USART2, '0');
 					
@@ -312,7 +312,7 @@ void MyDHT11_ReaderSM(void) {
 					}
 				} else if(110 <= MyDHT11_Count_ReadInterval && MyDHT11_Count_ReadInterval  <= 130) {//写的代码多了,但运行中要执行的代码少了
 					
-					MyDHT11_Count_ReadInterval_Start();
+					MyDHT11_Count_ReadInterval_Start();//【错点】误写在if(40<=MyDHT11_Count_ReadBit){}
 					MyDHT11_BitsArr[MyDHT11_Count_ReadBit ++] = 1;
 					Serial_SendByte(USART2, '1');
 					

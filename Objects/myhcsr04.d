@@ -41,3 +41,4 @@
 .\objects\myhcsr04.o: .\Hardware\MyADCAndDMA.h
 .\objects\myhcsr04.o: .\Hardware\MyHCSR04.h
 .\objects\myhcsr04.o: .\Hardware\MyDHT11.h
+.\objects\myhcsr04.o: .\Hardware\MyAquariumHeater.h

@@ -41,3 +41,4 @@
 .\objects\mytim.o: .\System\Delay.h
 .\objects\mytim.o: .\System\MyTIM.h
 .\objects\mytim.o: .\Hardware\MyDHT11.h
+.\objects\mytim.o: .\Hardware\MyAquariumHeater.h

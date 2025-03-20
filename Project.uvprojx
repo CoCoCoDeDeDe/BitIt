@@ -686,6 +686,16 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
+              <FileName>MyTest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyTest.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyTest.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyTest.h</FilePath>
+            </File>
+            <File>
               <FileName>Serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\Serial.c</FilePath>
@@ -801,14 +811,54 @@
               <FilePath>.\Hardware\MyDHT11.h</FilePath>
             </File>
             <File>
-              <FileName>MyTest.c</FileName>
+              <FileName>MyDS18B20.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Hardware\MyTest.c</FilePath>
+              <FilePath>.\Hardware\MyDS18B20.c</FilePath>
             </File>
             <File>
-              <FileName>MyTest.h</FileName>
+              <FileName>MyDS18B20.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Hardware\MyTest.h</FilePath>
+              <FilePath>.\Hardware\MyDS18B20.h</FilePath>
+            </File>
+            <File>
+              <FileName>MyWS2812.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyWS2812.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyWS2812.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyWS2812.h</FilePath>
+            </File>
+            <File>
+              <FileName>MyPlantGrowLamp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyPlantGrowLamp.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyPlantGrowLamp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyPlantGrowLamp.h</FilePath>
+            </File>
+            <File>
+              <FileName>MyAirPump.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyAirPump.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyAirPump.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyAirPump.h</FilePath>
+            </File>
+            <File>
+              <FileName>MyAquariumHeater.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MyAquariumHeater.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyAquariumHeater.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MyAquariumHeater.h</FilePath>
             </File>
           </Files>
         </Group>

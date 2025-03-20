@@ -42,8 +42,12 @@
 .\objects\main.o: .\Hardware\MyHCSR04.h
 .\objects\main.o: .\System\MyTIM.h
 .\objects\main.o: .\Hardware\MyDHT11.h
+.\objects\main.o: .\Hardware\MyAquariumHeater.h
 .\objects\main.o: .\Hardware\MySG90.h
 .\objects\main.o: .\Hardware\MyWaterPump.h
+.\objects\main.o: .\Hardware\MyDS18B20.h
 .\objects\main.o: .\Hardware\MyWaterQualitySensor.h
 .\objects\main.o: .\Hardware\MySoilMoistureSensor.h
 .\objects\main.o: .\Hardware\MyLightSensor.h
+.\objects\main.o: .\Hardware\MyPlantGrowLamp.h
+.\objects\main.o: .\Hardware\MyAirPump.h

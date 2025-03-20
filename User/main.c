@@ -118,13 +118,13 @@ int main(void)
 
 //		OLED_ShowNum(1, 1, MyTIM_2Count, 16);
 //		OLED_ShowNum(2, 1, MyTIM_3Count, 16);
-//		OLED_ShowNum(3, 1, MyDHT11_WriterSM_Counter, 16);
-//		OLED_ShowNum(4, 1, MyDHT11_DataArr[0], 8);
-//		OLED_ShowNum(4, 9, MyDHT11_DataArr[2], 8);
+//		OLED_ShowNum(3, 1, MyDHT11_Count_WriterSM, 16);
+		OLED_ShowNum(4, 1, MyDHT11_DataArr[0], 8);
+		OLED_ShowNum(4, 9, MyDHT11_DataArr[2], 8);
 		
-//		OLED_ShowNum(1, 1, MyDHT11_ReadIntervalCount, 16);
+//		OLED_ShowNum(4, 1, MyDHT11_Count_ReadInterval, 16);
 
-//		OLED_ShowNum(1, 1, MyDHT11_ReadBitCount, 16);
+		OLED_ShowNum(1, 1, MyDHT11_Count_ReadBit, 16);
 	}
 }
 
@@ -143,7 +143,7 @@ void TIM2_IRQHandler(void) {
 		
 		MyHCSR04_TrigCtrler();
 		
-		MyDHT11_WriterSM_Counter ++;
+		
 		
 		MyDHT11_WriterSM();
 		
@@ -160,7 +160,7 @@ void TIM3_IRQHandler(void) {//TCKCNT=1us,TCKCNT=TIT=0.01s
 		
 		MyTIM3_DIV100();
 		
-		MyDHT11_TIM3ARCounter();
+		MyDHT11_Count_TIM3ARer();
 		
 		MyDHT11_ReadCheckTimer();
 		

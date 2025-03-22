@@ -25,7 +25,7 @@ uint8_t MyDHT11_Count_ReadBit = 0;//在成功接收1Bit时++,在接收完40BIT或者开始接收
 
 void MyDHT11_Init(void) {
 	
-	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_OD;
 	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_4;
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStruct);

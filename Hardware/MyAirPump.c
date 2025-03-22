@@ -9,12 +9,12 @@ void MyAirPump_Init(void) {
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIO_APump, &GPIO_InitStruct);
 	
-	MyAirPump_Off();//默认关闭
+	MyAirPump_SET();//默认关闭
 }
-void MyAirPump_On(void) {
+void MyAirPump_SET(void) {
 	GPIO_SetBits(GPIO_APump, PIN_APump);	//高电平
 }
-void MyAirPump_Off(void) {
+void MyAirPump_RESET(void) {
 	GPIO_ResetBits(GPIO_APump, PIN_APump);
 }
 void MyAirPump_Cmd(BitAction BitVal) {

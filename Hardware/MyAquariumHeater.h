@@ -7,8 +7,8 @@
 #define PIN_Heater	GPIO_Pin_12
 
 void MyAquariumHeater_Init(void);
-void MyAquariumHeater_On(void);
-void MyAquariumHeater_Off(void);
+void MyAquariumHeater_SET(void);
+void MyAquariumHeater_RESET(void);
 void MyAquariumHeater_Cmd(BitAction BitVal);
 void MyAquariumHeater_GetBitVal(void);
 void MyAquariumHeater_GetBitVal(void);

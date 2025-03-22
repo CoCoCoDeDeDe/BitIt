@@ -7,8 +7,8 @@
 #define PIN_APump	GPIO_Pin_13
 
 void MyAirPump_Init(void);
-void MyAirPump_On(void);
-void MyAirPump_Off(void);
+void MyAirPump_SET(void);
+void MyAirPump_RESET(void);
 void MyAirPump_Cmd(BitAction BitVal);
 void MyAirPump_GetBitVal(void);
 

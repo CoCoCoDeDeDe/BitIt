@@ -9,12 +9,12 @@ void MyPlantGrowLamp_Init(void) {
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIO_PGLamp, &GPIO_InitStruct);
 	
-	MyPlantGrowLamp_Off();//默认关闭
+	MyPlantGrowLamp_SET();//默认关闭
 }
-void MyPlantGrowLamp_On(void) {
+void MyPlantGrowLamp_SET(void) {
 	GPIO_SetBits(GPIO_PGLamp, PIN_PGLamp);	//高电平
 }
-void MyPlantGrowLamp_Off(void) {
+void MyPlantGrowLamp_RESET(void) {
 	GPIO_ResetBits(GPIO_PGLamp, PIN_PGLamp);
 }
 void MyPlantGrowLamp_Cmd(BitAction BitVal) {

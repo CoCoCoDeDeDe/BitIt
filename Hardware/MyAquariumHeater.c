@@ -9,12 +9,12 @@ void MyAquariumHeater_Init(void) {
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIO_Heater, &GPIO_InitStruct);
 	
-	MyAquariumHeater_Off();//默认关闭
+	MyAquariumHeater_SET();//默认关闭
 }
-void MyAquariumHeater_On(void) {
+void MyAquariumHeater_SET(void) {
 	GPIO_SetBits(GPIO_Heater, PIN_Heater);	//高电平
 }
-void MyAquariumHeater_Off(void) {
+void MyAquariumHeater_RESET(void) {
 	GPIO_ResetBits(GPIO_Heater, PIN_Heater);
 }
 void MyAquariumHeater_Cmd(BitAction BitVal) {

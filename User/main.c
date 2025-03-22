@@ -127,12 +127,19 @@ int main(void)
 //		OLED_ShowNum(1, 1, MyTIM_2Count, 16);
 //		OLED_ShowNum(2, 1, MyTIM_3Count, 16);
 //		OLED_ShowNum(3, 1, MyDHT11_Count_WriterSM, 16);
-//		OLED_ShowNum(4, 1, MyDHT11_DataArr[0], 8);
-//		OLED_ShowNum(4, 9, MyDHT11_DataArr[2], 8);
+		OLED_ShowNum(4, 1, MyDHT11_DataArr[0], 8);
+		OLED_ShowNum(4, 9, MyDHT11_DataArr[2], 8);
 		
 //		OLED_ShowNum(4, 1, MyDHT11_Count_ReadInterval, 16);
 
 //		OLED_ShowNum(1, 1, MyDHT11_Count_ReadBit, 16);
+		
+		
+		MyAirPump_Cmd(Bit_RESET);
+		
+		MyAquariumHeater_Cmd(Bit_RESET);
+		
+		MyPlantGrowLamp_Cmd(Bit_RESET);
 		
 	}
 }
